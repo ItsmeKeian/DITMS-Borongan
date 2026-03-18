@@ -3,544 +3,463 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Digital Inspection and Tax Mapping System</title>
+    <title>Digital Inspection and Tax Mapping System</title>
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- FontAwesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
     <style>
         :root {
-            --gold-primary: #D4AF37;
-            --gold-dark: #B8942F;
-            --gold-darker: #8B5A2B;
-            --bg-light: #F8F9FA;
-            --card-bg: #FFFFFF;
+            --primary-gold: #D4AF37;
+            --secondary-gold: #F4E4BC;
+            --light-gold: #FFF8DC;
+            --white: #FFFFFF;
+            --whitesmoke: #F8F9FA;
             --text-dark: #2C3E50;
             --text-muted: #6C757D;
-            --border-light: #E9ECEF;
-            --shadow: 0 4px 20px rgba(0,0,0,0.08);
-            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-light);
+            background-color: var(--whitesmoke);
             color: var(--text-dark);
         }
 
-        /* Sidebar */
+        /* Sidebar Styles */
         .sidebar {
             position: fixed;
-            left: 0;
             top: 0;
-            width: 280px;
+            left: 0;
+            width: 260px;
             height: 100vh;
-            background: linear-gradient(180deg, var(--gold-darker) 0%, var(--gold-dark) 100%);
-            z-index: 1035;
-            box-shadow: 4px 0 20px rgba(139, 90, 43, 0.3);
-        }
-
-        .sidebar-header {
-            padding: 2.5rem 2rem 2rem;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
-        }
-
-        .logo-container {
-            width: 80px;
-            height: 80px;
-            background: rgba(255,255,255,0.95);
-            border-radius: 16px;
-            margin: 0 auto 1.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-        }
-
-        .logo-icon {
-            font-size: 2.5rem;
-            color: var(--gold-primary);
-        }
-
-        .sidebar-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 0.25rem;
-            letter-spacing: -0.5px;
-        }
-
-        .sidebar-subtitle {
-            color: rgba(255,255,255,0.85);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .sidebar-menu {
-            padding: 1.5rem 0;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            padding: 1rem 2rem;
-            color: rgba(255,255,255,0.85);
-            text-decoration: none;
+            background: var(--white);
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 1030;
             transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-            margin-bottom: 0.25rem;
         }
 
-        .nav-item:hover,
-        .nav-item.active {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border-left-color: var(--gold-primary);
-        }
-
-        .nav-icon {
-            width: 24px;
-            margin-right: 1.25rem;
-            font-size: 1.2rem;
+        .sidebar-logo {
+            padding: 2rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
             text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* Main Layout */
-        .main-wrapper {
-            margin-left: 280px;
-            min-height: 100vh;
+        .sidebar-logo h3 {
+            color: var(--white);
+            font-weight: 700;
+            margin: 0;
+            font-size: 1.4rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .sidebar-logo p {
+            color: rgba(255,255,255,0.9);
+            margin: 0.25rem 0 0 0;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-nav .nav-link {
+            color: var(--text-dark);
+            padding: 0.85rem 1.5rem;
+            border-left: 4px solid transparent;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-nav .nav-link:hover,
+        .sidebar-nav .nav-link.active {
+            background-color: var(--light-gold);
+            color: var(--primary-gold);
+            border-left-color: var(--primary-gold);
+        }
+
+        .sidebar-nav .nav-link i {
+            width: 20px;
+            margin-right: 10px;
         }
 
         /* Top Header */
-        .header {
-            background: var(--card-bg);
-            border-bottom: 1px solid var(--border-light);
-            padding: 1.5rem 2.5rem;
-            box-shadow: var(--shadow);
-        }
-
-        .header-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 0.25rem;
-        }
-
-        .header-subtitle {
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .user-info {
+        .top-header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 260px;
+            height: 70px;
+            background: var(--white);
+            border-bottom: 1px solid #dee2e6;
+            z-index: 1020;
+            padding: 0 1.5rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            justify-content: space-between;
         }
 
-        .user-avatar {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 1.1rem;
+        .main-content {
+            margin-left: 260px;
+            margin-top: 70px;
+            padding: 2rem;
+            min-height: calc(100vh - 70px);
         }
 
-        /* Content Area */
-        .content {
-            padding: 2.5rem;
-        }
-
-        /* Stat Cards */
-        .stats-grid {
-            margin-bottom: 3rem;
-        }
-
+        /* Stats Cards */
         .stat-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 2.25rem 2rem;
-            box-shadow: var(--shadow);
+            background: var(--white);
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
             transition: all 0.3s ease;
-            border: 1px solid var(--border-light);
-            position: relative;
             overflow: hidden;
         }
 
         .stat-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--gold-primary), var(--gold-dark));
+        .stat-card-header {
+            background: linear-gradient(135deg, var(--primary-gold), var(--secondary-gold));
+            color: white;
+            padding: 1.25rem 1.5rem;
         }
 
         .stat-number {
-            font-size: 2.75rem;
-            font-weight: 800;
-            color: var(--text-dark);
+            font-size: 2.25rem;
+            font-weight: 700;
             line-height: 1;
-            margin-bottom: 0.5rem;
         }
 
         .stat-label {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 0.9rem;
+            opacity: 0.95;
+            font-weight: 500;
         }
 
-        .stat-icon-large {
+        .stat-icon {
             position: absolute;
-            right: 1.75rem;
-            top: 1.75rem;
-            font-size: 3.5rem;
-            opacity: 0.08;
-            color: var(--gold-primary);
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            opacity: 0.15;
         }
 
-        /* Data Table */
-        .data-section {
-            background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-light);
+        /* Table Styles */
+        .table-container {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
             overflow: hidden;
         }
 
-        .section-header {
-            padding: 1.75rem 2.25rem;
-            background: #F8F9FA;
-            border-bottom: 1px solid var(--border-light);
-        }
-
-        .section-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin: 0;
-        }
-
-        .table-custom {
-            margin: 0;
-        }
-
-        .table-custom thead th {
-            background: #F8F9FA;
+        .table thead th {
+            background: var(--light-gold);
             border: none;
-            font-weight: 700;
-            color: var(--text-dark);
-            padding: 1.5rem 2rem;
-            border-bottom: 2px solid var(--border-light);
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
-        }
-
-        .table-custom td {
-            padding: 1.5rem 2rem;
-            vertical-align: middle;
-            border-color: #F8F9FA;
-        }
-
-        .table-custom tbody tr:hover {
-            background: #F8FAFC;
-        }
-
-        .status-badge {
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
             font-weight: 600;
-            font-size: 0.85rem;
+            color: var(--text-dark);
+            padding: 1.25rem 1rem;
+            border-bottom: 2px solid #e9ecef;
         }
 
-        .status-active { background: #D4EDDA; color: #155724; }
-        .status-pending { background: #FFF3CD; color: #856404; }
-        .status-completed { background: #D1ECF1; color: #0C5460; }
+        .table tbody td {
+            padding: 1.25rem 1rem;
+            vertical-align: middle;
+            border-color: #f8f9fa;
+        }
 
-        .business-avatar {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .table tbody tr:hover {
+            background-color: var(--light-gold);
+        }
+
+        /* Badge Styles */
+        .badge-gold {
+            background-color: var(--primary-gold);
             color: white;
-            font-weight: 700;
-            font-size: 0.9rem;
-            margin-right: 1rem;
         }
 
         /* Responsive */
-        @media (max-width: 1200px) {
-            .sidebar {
-                width: 260px;
-            }
-            .main-wrapper {
-                margin-left: 260px;
-            }
-        }
-
         @media (max-width: 992px) {
             .sidebar {
                 transform: translateX(-100%);
             }
-            .main-wrapper {
+            
+            .top-header {
+                left: 0;
+            }
+            
+            .main-content {
                 margin-left: 0;
             }
-            .sidebar.show {
-                transform: translateX(0);
-            }
-            .content {
-                padding: 1.75rem;
-            }
         }
 
-        @media (max-width: 768px) {
-            .stat-number {
-                font-size: 2.25rem;
-            }
-            .header {
-                padding: 1.25rem 1.5rem;
-            }
-            .content {
-                padding: 1.5rem 1rem;
-            }
+        /* Mobile Toggle */
+        .sidebar-toggle {
+            display: none;
         }
 
-        /* Utilities */
-        .text-gold { color: var(--gold-primary) !important; }
-        .bg-gold-light { background-color: rgba(212, 175, 55, 0.1) !important; }
+        @media (max-width: 992px) {
+            .sidebar-toggle {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Sidebar -->
-    <nav class="sidebar">
-        <div class="sidebar-header">
-            <div class="logo-container">
-                <i class="fas fa-building-columns logo-icon"></i>
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <h3><i class="fas fa-shield-alt me-2"></i>DITMS</h3>
+            <p>Digital Inspection and Tax Mapping System</p>
+        </div>
+        <nav class="sidebar-nav mt-3">
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                    <i class="fas fa-store"></i> Businesses
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                    <i class="fas fa-search"></i> Inspections
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                    <i class="fas fa-map-marked-alt"></i> Tax Mapping
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                    <i class="fas fa-chart-bar"></i> Reports
+                    </a>
+                </li>
+                <li class="nav-item border-top mt-2 pt-2">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="d-flex align-items-center">
+            <button class="sidebar-toggle btn btn-link text-decoration-none d-lg-none me-3">
+                <i class="fas fa-bars fs-4"></i>
+            </button>
+            <h5 class="mb-0 fw-bold text-dark">
+                <i class="fas fa-home me-2"></i>
+                Dashboard Overview
+            </h5>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="dropdown">
+                <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                    <img src="https://via.placeholder.com/40x40/2C3E50/FFFFFF?text=JD" class="rounded-circle" width="40" height="40" alt="User">
+                    <span class="ms-2 d-none d-md-inline fw-semibold">John Dela Cruz</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                </ul>
             </div>
-            <h3 class="sidebar-title">Digital Inspection</h3>
-            <h3 class="sidebar-title">Tax Mapping System</h3>
-            <p class="sidebar-subtitle">BPLO Borongan City</p>
         </div>
-        
-        <div class="sidebar-menu">
-            <a href="#" class="nav-item active">
-                <i class="fas fa-tachometer-alt nav-icon"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-store nav-icon"></i>
-                <span>Businesses</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-search-location nav-icon"></i>
-                <span>Inspections</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-map-marked-alt nav-icon"></i>
-                <span>Tax Mapping</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-file-invoice nav-icon"></i>
-                <span>Reports</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-users-cog nav-icon"></i>
-                <span>Users</span>
-            </a>
-            <a href="#" class="nav-item">
-                <i class="fas fa-sign-out-alt nav-icon"></i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </nav>
+    </header>
 
     <!-- Main Content -->
-    <div class="main-wrapper">
-        <!-- Header -->
-        <header class="header">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-                <div>
-                    <h1 class="header-title mb-1">Dashboard Overview</h1>
-                    <p class="header-subtitle mb-0">Business Permits and Licensing Office - Borongan City</p>
-                </div>
-                <div class="user-info">
-                    <div class="user-avatar">JS</div>
-                    <div>
-                        <div class="fw-semibold">Juan Santos</div>
-                        <small class="text-muted">Administrator</small>
-                    </div>
-                </div>
+    <main class="main-content">
+        <!-- Page Title -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="mb-1 fw-bold text-dark">Digital Inspection and Tax Mapping System</h2>
+                <p class="mb-0 text-muted">Borongan City, Eastern Samar</p>
             </div>
-        </header>
-
-        <!-- Content -->
-        <main class="content">
-            <!-- Statistics Cards -->
-            <div class="row stats-grid g-4">
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                    <div class="stat-card">
-                        <i class="fas fa-building stat-icon-large"></i>
-                        <div class="stat-number">1,247</div>
-                        <p class="stat-label">Total Businesses</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                    <div class="stat-card">
-                        <i class="fas fa-check-circle stat-icon-large"></i>
-                        <div class="stat-number text-success">1,156</div>
-                        <p class="stat-label">Inspected</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                    <div class="stat-card">
-                        <i class="fas fa-clock stat-icon-large text-warning"></i>
-                        <div class="stat-number text-warning">56</div>
-                        <p class="stat-label">Pending Inspection</p>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-6 col-md-6">
-                    <div class="stat-card">
-                        <i class="fas fa-exclamation-triangle stat-icon-large text-danger"></i>
-                        <div class="stat-number text-danger">35</div>
-                        <p class="stat-label">Violations</p>
-                    </div>
-                </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-outline-primary">
+                    <i class="fas fa-download me-2"></i>Export Report
+                </button>
+                <button class="btn btn-primary">
+                    <i class="fas fa-plus me-2"></i>New Record
+                </button>
             </div>
+        </div>
 
-            <!-- Recent Inspections Table -->
-            <div class="row g-4">
-                <div class="col-12">
-                    <div class="data-section">
-                        <div class="section-header d-flex justify-content-between align-items-center">
-                            <h2 class="section-title">
-                                <i class="fas fa-list me-2 text-gold"></i>
-                                Recent Inspection Records
-                            </h2>
-                            <a href="#" class="btn btn-outline-primary btn-sm fw-semibold">
-                                View All <i class="fas fa-arrow-right ms-1"></i>
-                            </a>
+        <!-- Stats Cards -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-3 col-md-6">
+                <div class="card stat-card h-100">
+                    <div class="card-body position-relative p-0">
+                        <div class="stat-card-header">
+                            <div class="stat-number">1,247</div>
+                            <div class="stat-label">Total Businesses</div>
+                            <i class="fas fa-users stat-icon"></i>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card stat-card h-100">
+                    <div class="card-body position-relative p-0">
+                        <div class="stat-card-header">
+                            <div class="stat-number">892</div>
+                            <div class="stat-label">Inspected</div>
+                            <i class="fas fa-boxes stat-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card stat-card h-100">
+                    <div class="card-body position-relative p-0">
+                        <div class="stat-card-header">
+                            <div class="stat-number">56</div>
+                            <div class="stat-label">Pending Inspection</div>
+                            <i class="fas fa-coins stat-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="card stat-card h-100">
+                    <div class="card-body position-relative p-0">
+                        <div class="stat-card-header">
+                            <div class="stat-number">35</div>
+                            <div class="stat-label">Violations</div>
+                            <i class="fas fa-chart-line stat-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Records Table -->
+        <div class="row">
+            <div class="col-12">
+                <div class="table-container">
+                   
+                    <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table table-custom mb-0">
+                            <table class="table mb-0">
                                 <thead>
                                     <tr>
                                         <th>Business</th>
-                                        <th>Owner</th>
+                                        <th>Owner</th>                                                         
                                         <th>Status</th>
-                                        <th>Date</th>
+                                        <th>Date</th>      
                                         <th>Location</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="business-avatar">BS</div>
-                                                Borongan Supermarket
-                                            </div>
-                                        </td>
-                                        <td>Juan Dela Cruz</td>
-                                        <td><span class="status-badge status-completed">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Poblacion Norte</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="business-avatar">SR</div>
-                                                Seaside Restaurant
-                                            </div>
-                                        </td>
+                                        <td>Borongan Supermarket</td>
                                         <td>Maria Santos</td>
-                                        <td><span class="status-badge status-pending">Pending</span></td>
-                                        <td>Jan 14, 2024</td>
-                                        <td>South Baybayin</td>
+                                        <td><span class="badge bg-success">Completed</span></td>
+                                        <td>Jan 15, 2024</td>
+                                        <td>Songco</td>
+                                       
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <tr>
+                                        <td>Borongan Supermarket</td>
+                                        <td>Maria Santos</td>
+                                        <td><span class="badge bg-success">Completed</span></td>
+                                        <td>Jan 15, 2024</td>
+                                        <td>Songco</td>
+                                       
                                         <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="business-avatar">GH</div>
-                                                Golden Hardware
-                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
                                         </td>
-                                        <td>Pedro Garcia</td>
-                                        <td><span class="status-badge status-active">Active</span></td>
-                                        <td>Jan 12, 2024</td>
-                                        <td>Balud</td>
                                     </tr>
                                     <tr>
+                                        <td>Borongan Supermarket</td>
+                                        <td>Maria Santos</td>
+                                        <td><span class="badge bg-success">Completed</span></td>
+                                        <td>Jan 15, 2024</td>
+                                        <td>Songco</td>
+                                       
                                         <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="business-avatar">PC</div>
-                                                Pacifica Clinic
-                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
                                         </td>
-                                        <td>Ana Lopez</td>
-                                        <td><span class="status-badge status-completed">Completed</span></td>
-                                        <td>Jan 10, 2024</td>
-                                        <td>Poblacion Sur</td>
                                     </tr>
                                     <tr>
+                                        <td>Borongan Supermarket</td>
+                                        <td>Maria Santos</td>
+                                        <td><span class="badge bg-success">Completed</span></td>
+                                        <td>Jan 15, 2024</td>
+                                        <td>Songco</td>
+                                       
                                         <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="business-avatar">ES</div>
-                                                Eastern Star Hotel
-                                            </div>
+                                            <button class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
                                         </td>
-                                        <td>Ramon Torres</td>
-                                        <td><span class="status-badge status-active">Active</span></td>
-                                        <td>Jan 8, 2024</td>
-                                        <td>Real Street</td>
-                                        </tr>
+                                    </tr>
+                                    <tr>
+                                        <td>Borongan Supermarket</td>
+                                        <td>Maria Santos</td>
+                                        <td><span class="badge bg-success">Completed</span></td>
+                                        <td>Jan 15, 2024</td>
+                                        <td>Songco</td>
+                                       
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Add hover animations
-        document.querySelectorAll('.stat-card').forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.1}s`;
+        // Sidebar toggle for mobile
+        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').style.transform = 
+                document.querySelector('.sidebar').style.transform === 'translateX(-100%)' ? 
+                'translateX(0)' : 'translateX(-100%)';
         });
 
-        // Mobile menu toggle (if needed)
-        function toggleSidebar() {
-            document.querySelector('.sidebar').classList.toggle('show');
-        }
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.querySelector('.sidebar');
+            const toggle = document.querySelector('.sidebar-toggle');
+            
+            if (window.innerWidth <= 992 && 
+                !sidebar.contains(event.target) && 
+                !toggle.contains(event.target)) {
+                sidebar.style.transform = 'translateX(-100%)';
+            }
+        });
     </script>
 </body>
 </html>
