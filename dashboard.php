@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+
+if(!isset($_SESSION["user"])){
+    
+    header("Location: index.html");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +62,7 @@
                     </a>
                 </li>
                 <li class="nav-item border-top mt-2 pt-2">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="php/logout.php">
                         <i class="fas fa-sign-out-alt"></i>
                         Logout
                     </a>

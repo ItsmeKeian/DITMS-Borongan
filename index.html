@@ -29,9 +29,9 @@
 
             <!-- Form Section -->
             <div class="form-section">
-                <form>
+                <form id="loginForm">
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="username" placeholder="Username" required>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
                         <label for="username">
                             <i class="fas fa-user me-2"></i>Username
                         </label>
@@ -39,7 +39,7 @@
 
                     <div class="form-floating">
                         
-                            <input type="password" class="form-control" id="password" placeholder="Password" required>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                             <label for="username">
                                 <i class="fas fa-lock me-2"></i>Password
                             </label>
@@ -62,9 +62,41 @@
 
     <!-- Bootstrap 5 JS -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery-4.0.0.min.js"></script>
     
     <script>
-            
+
+
+              $("#loginForm").submit(function(e){
+                e.preventDefault();
+
+               
+                $.ajax({
+                    url: "php/login.php",
+                    type: "POST",
+                    data: $(this).serialize(),
+
+                   
+
+                    success: function(res){
+                        
+                        console.log(res)
+
+                        let data = JSON.parse(res);
+
+                        if(data.status === "success"){
+
+                            window.location = "dashboard.php";
+
+                        } else {
+
+                            $("#msg").text(data.message);
+                        }
+                    }
+                });
+            });
+
+
     </script>
 </body>
 </html>
