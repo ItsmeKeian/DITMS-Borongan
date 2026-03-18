@@ -1,56 +1,412 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Digital Inspection & Tax Mapping System | BPLO Borongan City</title>
+    <title>Login - Digital Inspection and Tax Mapping System</title>
+    
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-dark: #B8942F;
+            --gold-light: #F2E8C6;
+            --bg-light: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-dark: #2C3E50;
+            --text-muted: #6C757D;
+            --border-light: #E9ECEF;
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-light) 0%, #E9ECEF 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .login-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
+            color: var(--text-dark);
+            padding: 3rem 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .logo-section {
+            margin-bottom: 1.75rem;
+        }
+
+        .gov-logo {
+            width: 100px;
+            height: 100px;
+            background: var(--card-bg);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            border: 4px solid rgba(255,255,255,0.3);
+        }
+
+        .gov-logo i {
+            font-size: 3rem;
+            color: var(--gold-primary);
+        }
+
+        .system-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .office-subtitle {
+            font-size: 1rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.95);
+            margin: 0;
+            opacity: 0.95;
+        }
+
+        .login-body {
+            padding: 2.75rem 2.75rem 1.75rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.75rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+            display: block;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .form-control {
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem 1.25rem 3.5rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #FCFCFD;
+            height: auto;
+        }
+
+        .form-control:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.15);
+            background: var(--card-bg);
+            transform: translateY(-1px);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            z-index: 10;
+            transition: color 0.3s ease;
+        }
+
+        .form-control:focus + .input-icon,
+        .form-control:not(:placeholder-shown) + .input-icon {
+            color: var(--gold-primary);
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 1.25rem 2rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            width: 100%;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.5);
+            color: var(--text-dark);
+        }
+
+        .btn-login:active {
+            transform: translateY(-1px);
+        }
+
+        .login-footer {
+            padding: 0 2.75rem 2.75rem;
+            text-align: center;
+            border-top: 1px solid var(--border-light);
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .security-badge {
+            display: inline-flex;
+            align-items: center;
+            background: var(--gold-light);
+            color: #8B5A2B;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .security-badge i {
+            margin-right: 0.5rem;
+            color: var(--gold-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 576px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .login-card {
+                margin: 1rem;
+                border-radius: 16px;
+            }
+            
+            .login-header {
+                padding: 2.25rem 2rem 1.75rem;
+            }
+            
+            .login-body {
+                padding: 2rem 2rem 1.5rem;
+            }
+            
+            .login-footer {
+                padding: 0 2rem 2rem;
+            }
+            
+            .system-title {
+                font-size: 1.4rem;
+            }
+            
+            .gov-logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .gov-logo i {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Form validation feedback */
+        .is-invalid {
+            border-color: #DC3545 !important;
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
+        }
+
+        .is-valid {
+            border-color: #198754 !important;
+            box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25) !important;
+        }
+
+        /* Loading animation for button */
+        .btn-loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .btn-loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 0.75rem;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
-<body class="login-bg">
-    <div class="container">
-        <div class="row justify-content-center align-items-center min-vh-100">
-            <div class="col-lg-5 col-md-7 col-sm-9">
-                <div class="login-card">
-                    <div class="text-center mb-4">
-                        <div class="logo-placeholder mb-3">
-                            <i class="fas fa-building-columns fa-3x"></i>
-                        </div>
-                        <h2 class="system-title">Digital Inspection and Tax Mapping System</h2>
-                        <p class="system-subtitle">BPLO Borongan City</p>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Header Section -->
+            <div class="login-header">
+                <div class="logo-section">
+                    <div class="gov-logo">
+                        <i class="fas fa-building-columns"></i>
                     </div>
-                    
-                    <?php if ($error): ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fas fa-exclamation-triangle me-2"></i><?= $error ?>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <h1 class="system-title">Digital Inspection</h1>
+                    <h1 class="system-title">and Tax Mapping System</h1>
+                    <p class="office-subtitle">
+                        Business Permits and Licensing Office<br>
+                        <strong>Borongan City</strong>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Form Section -->
+            <div class="login-body">
+                <form id="loginForm" novalidate>
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="username" 
+                                placeholder="Enter your username"
+                                required
+                            >
+                            <i class="fas fa-user input-icon"></i>
                         </div>
-                    <?php endif; ?>
-                    
-                    <form method="POST">
-                        <div class="mb-4">
-                            <label class="form-label"><i class="fas fa-user me-2 text-gold"></i>Username</label>
-                            <input type="text" class="form-control login-input" name="username" required>
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label"><i class="fas fa-lock me-2 text-gold"></i>Password</label>
-                            <input type="password" class="form-control login-input" name="password" required>
-                        </div>
-                        <button type="submit" class="btn btn-login w-100">
-                            <i class="fas fa-sign-in-alt me-2"></i>Login to System
-                        </button>
-                    </form>
-                    
-                    <div class="text-center mt-4">
-                        <small class="text-muted">Official BPLO Borongan City System</small>
                     </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="password" 
+                                class="form-control" 
+                                id="password" 
+                                placeholder="Enter your password"
+                                required
+                            >
+                            <i class="fas fa-lock input-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="remember">
+                            <label class="form-check-label" for="remember">
+                                Remember me
+                            </label>
+                        </div>
+                        <a href="#" class="text-decoration-none text-muted fw-medium small">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-login mb-3" id="loginBtn">
+                        <i class="fas fa-sign-in-alt me-3"></i>
+                        Sign In to System
+                    </button>
+                </form>
+            </div>
+
+            <!-- Footer Section -->
+            <div class="login-footer">
+                <p class="footer-text">For authorized personnel only</p>
+                <div class="security-badge">
+                    <i class="fas fa-shield-check"></i>
+                    Official BPLO Borongan City System
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Form validation and submission handling
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = this;
+            const btn = document.getElementById('loginBtn');
+            const username = document.getElementById('username');
+            const password = document.getElementById('password');
+            
+            // Reset previous validation
+            form.classList.add('was-validated');
+            
+            // Simulate login process
+            btn.classList.add('btn-loading');
+            btn.textContent = 'Signing in...';
+            
+            setTimeout(() => {
+                // Simulate success (in real app, this would be AJAX to backend)
+                alert('Login successful! (Demo)');
+                // window.location.href = 'dashboard.html';
+                
+                btn.classList.remove('btn-loading');
+                btn.innerHTML = '<i class="fas fa-sign-in-alt me-3"></i>Sign In to System';
+            }, 2000);
+        });
+
+        // Input focus effects
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.parentElement.classList.remove('focused');
+            });
+        });
+    </script>
 </body>
 </html>

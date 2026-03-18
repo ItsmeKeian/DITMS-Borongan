@@ -3,171 +3,524 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Digital Inspection & Tax Mapping System | BPLO Borongan City</title>
+    <title>Dashboard - Digital Inspection and Tax Mapping System</title>
+    
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- FontAwesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-dark: #B8942F;
+            --gold-darker: #8B5A2B;
+            --bg-light: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-dark: #2C3E50;
+            --text-muted: #6C757D;
+            --border-light: #E9ECEF;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(180deg, var(--gold-darker) 0%, var(--gold-dark) 100%);
+            z-index: 1035;
+            box-shadow: 4px 0 20px rgba(139, 90, 43, 0.3);
+        }
+
+        .sidebar-header {
+            padding: 2.5rem 2rem 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            margin: 0 auto 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--gold-primary);
+        }
+
+        .sidebar-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.25rem;
+            letter-spacing: -0.5px;
+        }
+
+        .sidebar-subtitle {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .sidebar-menu {
+            padding: 1.5rem 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            margin-bottom: 0.25rem;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border-left-color: var(--gold-primary);
+        }
+
+        .nav-icon {
+            width: 24px;
+            margin-right: 1.25rem;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        /* Main Layout */
+        .main-wrapper {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+
+        /* Top Header */
+        .header {
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1.5rem 2.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .header-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .header-subtitle {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Content Area */
+        .content {
+            padding: 2.5rem;
+        }
+
+        /* Stat Cards */
+        .stats-grid {
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2.25rem 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold-primary), var(--gold-dark));
+        }
+
+        .stat-number {
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-icon-large {
+            position: absolute;
+            right: 1.75rem;
+            top: 1.75rem;
+            font-size: 3.5rem;
+            opacity: 0.08;
+            color: var(--gold-primary);
+        }
+
+        /* Data Table */
+        .data-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 1.75rem 2.25rem;
+            background: #F8F9FA;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .table-custom {
+            margin: 0;
+        }
+
+        .table-custom thead th {
+            background: #F8F9FA;
+            border: none;
+            font-weight: 700;
+            color: var(--text-dark);
+            padding: 1.5rem 2rem;
+            border-bottom: 2px solid var(--border-light);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .table-custom td {
+            padding: 1.5rem 2rem;
+            vertical-align: middle;
+            border-color: #F8F9FA;
+        }
+
+        .table-custom tbody tr:hover {
+            background: #F8FAFC;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .status-active { background: #D4EDDA; color: #155724; }
+        .status-pending { background: #FFF3CD; color: #856404; }
+        .status-completed { background: #D1ECF1; color: #0C5460; }
+
+        .business-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 260px;
+            }
+            .main-wrapper {
+                margin-left: 260px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .main-wrapper {
+                margin-left: 0;
+            }
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            .content {
+                padding: 1.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stat-number {
+                font-size: 2.25rem;
+            }
+            .header {
+                padding: 1.25rem 1.5rem;
+            }
+            .content {
+                padding: 1.5rem 1rem;
+            }
+        }
+
+        /* Utilities */
+        .text-gold { color: var(--gold-primary) !important; }
+        .bg-gold-light { background-color: rgba(212, 175, 55, 0.1) !important; }
+    </style>
 </head>
 <body>
     <!-- Sidebar -->
-    <div class="sidebar">
+    <nav class="sidebar">
         <div class="sidebar-header">
-            <div class="logo-placeholder mb-3">
-                <i class="fas fa-building-columns"></i>
+            <div class="logo-container">
+                <i class="fas fa-building-columns logo-icon"></i>
             </div>
-            <h4>BPLO System</h4>
-            <p>Digital Inspection & Tax Mapping</p>
+            <h3 class="sidebar-title">Digital Inspection</h3>
+            <h3 class="sidebar-title">Tax Mapping System</h3>
+            <p class="sidebar-subtitle">BPLO Borongan City</p>
         </div>
-        <nav class="sidebar-nav">
-            <a href="dashboard.php" class="nav-item active">
-                <i class="fas fa-tachometer-alt"></i> Dashboard
+        
+        <div class="sidebar-menu">
+            <a href="#" class="nav-item active">
+                <i class="fas fa-tachometer-alt nav-icon"></i>
+                <span>Dashboard</span>
             </a>
             <a href="#" class="nav-item">
-                <i class="fas fa-building"></i> Business Records
+                <i class="fas fa-store nav-icon"></i>
+                <span>Businesses</span>
             </a>
             <a href="#" class="nav-item">
-                <i class="fas fa-search"></i> Inspections
+                <i class="fas fa-search-location nav-icon"></i>
+                <span>Inspections</span>
             </a>
             <a href="#" class="nav-item">
-                <i class="fas fa-map-marked-alt"></i> Tax Mapping
+                <i class="fas fa-map-marked-alt nav-icon"></i>
+                <span>Tax Mapping</span>
             </a>
             <a href="#" class="nav-item">
-                <i class="fas fa-file-alt"></i> Reports
+                <i class="fas fa-file-invoice nav-icon"></i>
+                <span>Reports</span>
             </a>
             <a href="#" class="nav-item">
-                <i class="fas fa-users"></i> Users
+                <i class="fas fa-users-cog nav-icon"></i>
+                <span>Users</span>
             </a>
             <a href="#" class="nav-item">
-                <i class="fas fa-cog"></i> Settings
+                <i class="fas fa-sign-out-alt nav-icon"></i>
+                <span>Logout</span>
             </a>
-            <a href="logout.php" class="nav-item">
-                <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
-        </nav>
-    </div>
+        </div>
+    </nav>
 
     <!-- Main Content -->
     <div class="main-wrapper">
-        <!-- Top Navbar -->
-        <header class="top-navbar">
-            <div class="d-flex align-items-center justify-content-between">
-                <h2 class="mb-0"><i class="fas fa-tachometer-alt me-2 text-gold"></i>Dashboard</h2>
-                <div class="user-menu dropdown">
-                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
-                        <img src="https://via.placeholder.com/40x40/1E3A8A/FFFFFF?text=" class="rounded-circle me-2">
-                        <span></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
-                        <li><a class="dropdown-item" href="logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                    </ul>
+        <!-- Header -->
+        <header class="header">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div>
+                    <h1 class="header-title mb-1">Dashboard Overview</h1>
+                    <p class="header-subtitle mb-0">Business Permits and Licensing Office - Borongan City</p>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar">JS</div>
+                    <div>
+                        <div class="fw-semibold">Juan Santos</div>
+                        <small class="text-muted">Administrator</small>
+                    </div>
                 </div>
             </div>
         </header>
 
         <!-- Content -->
         <main class="content">
-            <div class="container-fluid">
-                <!-- Stats Cards -->
-                <div class="row g-4 mb-5">
-                    <div class="col-xl-3 col-md-6">
-                        <div class="stat-card blue">
-                            <div class="stat-icon"><i class="fas fa-building"></i></div>
-                            <div>
-                                <h3></h3>
-                                <p>Total Businesses</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="stat-card gold">
-                            <div class="stat-icon"><i class="fas fa-search"></i></div>
-                            <div>
-                                <h3></h3>
-                                <p>Total Inspections</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="stat-card orange">
-                            <div class="stat-icon"><i class="fas fa-clock"></i></div>
-                            <div>
-                                <h3></h3>
-                                <p>Pending Inspections</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6">
-                        <div class="stat-card green">
-                            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-                            <div>
-                                <h3></h3>
-                                <p>Completed Inspections</p>
-                            </div>
-                        </div>
+            <!-- Statistics Cards -->
+            <div class="row stats-grid g-4">
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <div class="stat-card">
+                        <i class="fas fa-building stat-icon-large"></i>
+                        <div class="stat-number">1,247</div>
+                        <p class="stat-label">Total Businesses</p>
                     </div>
                 </div>
-
-                <div class="row g-4">
-                    <!-- Recent Inspections -->
-                    <div class="col-lg-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5><i class="fas fa-list me-2 text-gold"></i>Recent Inspections</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Business</th>
-                                                <th>Inspector</th>
-                                                <th>Date</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            
-                                            <tr>
-                                                <td>what the</td>
-                                                <td>what teh</td>
-                                                <td>what the</td>
-                                                <td>
-                                                   
-                                                        <span class="badge bg-warning text-dark">Pending</span>
-                                                   
-                                                        <span class="badge bg-success">Completed</span>
-                                                  
-                                                        <span class="badge bg-secondary">Draft</span>
-                                                   
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-outline-primary">View</button>
-                                                </td>
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <div class="stat-card">
+                        <i class="fas fa-check-circle stat-icon-large"></i>
+                        <div class="stat-number text-success">1,156</div>
+                        <p class="stat-label">Inspected</p>
                     </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <div class="stat-card">
+                        <i class="fas fa-clock stat-icon-large text-warning"></i>
+                        <div class="stat-number text-warning">56</div>
+                        <p class="stat-label">Pending Inspection</p>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-6">
+                    <div class="stat-card">
+                        <i class="fas fa-exclamation-triangle stat-icon-large text-danger"></i>
+                        <div class="stat-number text-danger">35</div>
+                        <p class="stat-label">Violations</p>
+                    </div>
+                </div>
+            </div>
 
-                    <!-- Map Placeholder -->
-                    <div class="col-lg-4">
-                        <div class="card h-100">
-                            <div class="card-header">
-                                <h5><i class="fas fa-map me-2 text-gold"></i>Tax Mapping</h5>
-                            </div>
-                            <div class="card-body text-center p-4">
-                                <div class="map-placeholder">
-                                    <i class="fas fa-map-marked-alt fa-4x text-muted mb-3"></i>
-                                    <h6>Google Maps Integration</h6>
-                                    <p class="text-muted small">Business locations & tax zones</p>
-                                    <button class="btn btn-outline-gold btn-sm">Configure Map</button>
-                                </div>
-                            </div>
+            <!-- Recent Inspections Table -->
+            <div class="row g-4">
+                <div class="col-12">
+                    <div class="data-section">
+                        <div class="section-header d-flex justify-content-between align-items-center">
+                            <h2 class="section-title">
+                                <i class="fas fa-list me-2 text-gold"></i>
+                                Recent Inspection Records
+                            </h2>
+                            <a href="#" class="btn btn-outline-primary btn-sm fw-semibold">
+                                View All <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-custom mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Business</th>
+                                        <th>Owner</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="business-avatar">BS</div>
+                                                Borongan Supermarket
+                                            </div>
+                                        </td>
+                                        <td>Juan Dela Cruz</td>
+                                        <td><span class="status-badge status-completed">Completed</span></td>
+                                        <td>Jan 15, 2024</td>
+                                        <td>Poblacion Norte</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="business-avatar">SR</div>
+                                                Seaside Restaurant
+                                            </div>
+                                        </td>
+                                        <td>Maria Santos</td>
+                                        <td><span class="status-badge status-pending">Pending</span></td>
+                                        <td>Jan 14, 2024</td>
+                                        <td>South Baybayin</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="business-avatar">GH</div>
+                                                Golden Hardware
+                                            </div>
+                                        </td>
+                                        <td>Pedro Garcia</td>
+                                        <td><span class="status-badge status-active">Active</span></td>
+                                        <td>Jan 12, 2024</td>
+                                        <td>Balud</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="business-avatar">PC</div>
+                                                Pacifica Clinic
+                                            </div>
+                                        </td>
+                                        <td>Ana Lopez</td>
+                                        <td><span class="status-badge status-completed">Completed</span></td>
+                                        <td>Jan 10, 2024</td>
+                                        <td>Poblacion Sur</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="business-avatar">ES</div>
+                                                Eastern Star Hotel
+                                            </div>
+                                        </td>
+                                        <td>Ramon Torres</td>
+                                        <td><span class="status-badge status-active">Active</span></td>
+                                        <td>Jan 8, 2024</td>
+                                        <td>Real Street</td>
+                                        </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -175,6 +528,19 @@
         </main>
     </div>
 
+    <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Add hover animations
+        document.querySelectorAll('.stat-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Mobile menu toggle (if needed)
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+    </script>
 </body>
 </html>
