@@ -85,8 +85,8 @@ if(!isset($_SESSION["user"])){
         <div class="d-flex align-items-center">
             <div class="dropdown">
                 <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                    <img src="assets/img/borlogo.png" class="rounded-circle" width="40" height="40" alt="User">
-                    <span class="ms-2 d-none d-md-inline fw-semibold">Administrator</span>
+                    <img src="https://via.placeholder.com/40x40/2C3E50/FFFFFF?text=JD" class="rounded-circle" width="40" height="40" alt="User">
+                    <span class="ms-2 d-none d-md-inline fw-semibold">John Dela Cruz</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
@@ -185,7 +185,7 @@ if(!isset($_SESSION["user"])){
                                 <tbody>
                                     <tr>
                                         <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
+                                        <td>Maria Santos</td>
                                         <td><span class="badge bg-success">Completed</span></td>
                                         <td>Jan 15, 2024</td>
                                         <td>Songco</td>
@@ -198,7 +198,7 @@ if(!isset($_SESSION["user"])){
                                     </tr>
                                     <tr>
                                         <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
+                                        <td>Maria Santos</td>
                                         <td><span class="badge bg-success">Completed</span></td>
                                         <td>Jan 15, 2024</td>
                                         <td>Songco</td>
@@ -211,7 +211,7 @@ if(!isset($_SESSION["user"])){
                                     </tr>
                                     <tr>
                                         <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
+                                        <td>Maria Santos</td>
                                         <td><span class="badge bg-success">Completed</span></td>
                                         <td>Jan 15, 2024</td>
                                         <td>Songco</td>
@@ -224,7 +224,7 @@ if(!isset($_SESSION["user"])){
                                     </tr>
                                     <tr>
                                         <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
+                                        <td>Maria Santos</td>
                                         <td><span class="badge bg-success">Completed</span></td>
                                         <td>Jan 15, 2024</td>
                                         <td>Songco</td>
@@ -237,7 +237,7 @@ if(!isset($_SESSION["user"])){
                                     </tr>
                                     <tr>
                                         <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
+                                        <td>Maria Santos</td>
                                         <td><span class="badge bg-success">Completed</span></td>
                                         <td>Jan 15, 2024</td>
                                         <td>Songco</td>
