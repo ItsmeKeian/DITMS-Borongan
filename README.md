@@ -115,7 +115,13 @@ The project is running in a localhost environment during development.
 
 ## 📷 Screenshots
 
+### Login
+![Login](assets/screenshots/login.png)
 
+### Dashboard
+![Dashboard](assets/screenshots/dashboard.png)
+
+---
 
 ## 🔒 Note
 
