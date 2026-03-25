@@ -36,7 +36,7 @@ if(!isset($_SESSION["user"])){
         <nav class="sidebar-nav mt-3">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="dashboard.php">
+                    <a class="nav-link" href="dashboard.php">
                         <i class="fas fa-tachometer-alt"></i>
                         Dashboard
                     </a>
@@ -46,8 +46,8 @@ if(!isset($_SESSION["user"])){
                     <i class="fas fa-store"></i> Businesses
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="inspections.php">
+                <li class="nav-item ">
+                    <a class="nav-link active" href="inspections.php">
                     <i class="fas fa-search"></i> Inspections
                     </a>
                 </li>
@@ -79,7 +79,7 @@ if(!isset($_SESSION["user"])){
             </button>
             <h5 class="mb-0 fw-bold text-dark">
                 <i class="fas fa-home me-2"></i>
-                Dashboard Overview
+                Inspections Overview
             </h5>
         </div>
         <div class="d-flex align-items-center">
@@ -108,61 +108,15 @@ if(!isset($_SESSION["user"])){
             </div>
             <div class="d-flex gap-2">
                 <button class="btn btn-outline-primary">
-                    <i class="fas fa-download me-2"></i>Export Report
+                    <i class="fas fa-download me-2"></i>Export
                 </button>
-                <button class="btn btn-primary">
-                    <i class="fas fa-plus me-2"></i>New Record
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addInspectionModal">
+                    <i class="fas fa-plus me-2"></i>New Inspection
                 </button>
             </div>
         </div>
 
-        <!-- Stats Cards -->
-        <div class="row g-4 mb-5">
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number">1,247</div>
-                            <div class="stat-label">Total Businesses</div>
-                            <i class="fas fa-users stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number">892</div>
-                            <div class="stat-label">Inspected</div>
-                            <i class="fas fa-boxes stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number">56</div>
-                            <div class="stat-label">Pending Inspection</div>
-                            <i class="fas fa-coins stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number">35</div>
-                            <div class="stat-label">Violations</div>
-                            <i class="fas fa-chart-line stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+     
 
         <!-- Recent Records Table -->
         <div class="row">
@@ -256,6 +210,281 @@ if(!isset($_SESSION["user"])){
             </div>
         </div>
     </main>
+
+
+
+    <!-- ADD INSPECTION MODAL -->
+<div class="modal fade" id="addInspectionModal" tabindex="-1">
+<div class="modal-dialog modal-xl modal-dialog-scrollable modal-fullscreen-lg-down">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">
+            Add Inspection Record
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form method="POST" action="php/create/create_inspection.php">
+
+      <div class="modal-body">
+
+<!-- ================= GENERAL ================= -->
+
+<h6 class="fw-bold">General Information</h6>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <label>Date</label>
+        <input type="date" name="date_of_inspection" class="form-control">
+    </div>
+
+    <div class="col-md-4">
+        <label>Time</label>
+        <input type="time" name="time_of_inspection" class="form-control">
+    </div>
+
+    <div class="col-md-4">
+        <label>Barangay</label>
+        <input type="text" name="barangay" class="form-control">
+    </div>
+
+</div>
+
+<hr>
+
+
+<!-- ================= BUSINESS ================= -->
+
+<h6 class="fw-bold">Business Information</h6>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <label>Business Name</label>
+        <input type="text" name="business_name" class="form-control">
+    </div>
+
+    <div class="col-md-6">
+        <label>Trade Name</label>
+        <input type="text" name="trade_name" class="form-control">
+    </div>
+
+    <div class="col-md-6">
+        <label>Owner Name</label>
+        <input type="text" name="owner_name" class="form-control">
+    </div>
+
+    <div class="col-md-6">
+        <label>Contact Number</label>
+        <input type="text" name="contact_number" class="form-control">
+    </div>
+
+</div>
+
+<hr>
+
+
+<!-- ================= REGISTRATION ================= -->
+
+<h6 class="fw-bold">Registration Status</h6>
+
+<div class="row">
+
+<div class="col-md-3">
+<label>Mayor Permit</label>
+<select name="mayor_permit" class="form-control">
+<option value="">Select</option>
+<option>Yes</option>
+<option>No</option>
+</select>
+</div>
+
+<div class="col-md-3">
+<label>Barangay Clearance</label>
+<select name="barangay_clearance" class="form-control">
+<option value="">Select</option>
+<option>Yes</option>
+<option>No</option>
+</select>
+</div>
+
+<div class="col-md-3">
+<label>DTI / SEC / CDA</label>
+<select name="dti_sec_cda" class="form-control">
+<option value="">Select</option>
+<option>Yes</option>
+<option>No</option>
+</select>
+</div>
+
+<div class="col-md-3">
+<label>BIR</label>
+<select name="bir_registration" class="form-control">
+<option value="">Select</option>
+<option>Yes</option>
+<option>No</option>
+</select>
+</div>
+
+</div>
+
+<div class="row mt-2">
+
+<div class="col-md-6">
+<label>Permit Number</label>
+<input type="text" name="permit_number" class="form-control">
+</div>
+
+<div class="col-md-6">
+<label>Year Last Registered</label>
+<input type="text" name="year_last_registered" class="form-control">
+</div>
+
+</div>
+
+<hr>
+
+
+<!-- ================= BUSINESS DETAILS ================= -->
+
+<h6 class="fw-bold">Business Details</h6>
+
+<label>Declared Nature</label>
+<textarea name="declared_nature" class="form-control"></textarea>
+
+<label class="mt-2">Actual Nature</label>
+<textarea name="actual_nature" class="form-control"></textarea>
+
+<div class="row mt-2">
+
+<div class="col-md-4">
+<label>Floor Area</label>
+<input type="text" name="floor_area">
+</div>
+
+<div class="col-md-4">
+<label>Male Employees</label>
+<input type="number" name="male_employees">
+</div>
+
+<div class="col-md-4">
+<label>Female Employees</label>
+<input type="number" name="female_employees">
+</div>
+
+</div>
+
+<hr>
+
+
+<!-- ================= FINDINGS ================= -->
+
+<h6 class="fw-bold">Tax Mapping Findings</h6>
+
+<div class="form-check">
+<input type="checkbox" name="no_mayor_permit" value="1">
+<label>Operating without Mayor Permit</label>
+</div>
+
+<div class="form-check">
+<input type="checkbox" name="expired_permit" value="1">
+<label>Expired Permit</label>
+</div>
+
+<div class="form-check">
+<input type="checkbox" name="change_nature" value="1">
+<label>Change in nature</label>
+</div>
+
+<div class="form-check">
+<input type="checkbox" name="change_address" value="1">
+<label>Change address</label>
+</div>
+
+<div class="form-check">
+<input type="checkbox" name="additional_line" value="1">
+<label>Additional line</label>
+</div>
+
+<label>Others</label>
+<input type="text" name="others" class="form-control">
+
+
+<hr>
+
+
+<!-- ================= ACTION ================= -->
+
+<h6 class="fw-bold">Action Taken</h6>
+
+<div class="form-check">
+<input type="checkbox" name="notice_register" value="1">
+<label>Notice to register</label>
+</div>
+
+<div class="form-check">
+<input type="checkbox" name="notice_violation" value="1">
+<label>Notice violation</label>
+</div>
+
+<div class="form-check">
+<input type="checkbox" name="reassessment" value="1">
+<label>Reassessment</label>
+</div>
+
+<label>Compliance days</label>
+<input type="text" name="compliance_days" class="form-control">
+
+<label>Referred to</label>
+<input type="text" name="referred_to" class="form-control">
+
+<label>Remarks</label>
+<textarea name="action_remarks" class="form-control"></textarea>
+
+
+<hr>
+
+
+<!-- ================= INSPECTOR ================= -->
+
+<h6 class="fw-bold">Inspector</h6>
+
+<label>Inspector Name</label>
+<input type="text" name="inspector_name" class="form-control">
+
+<label>Date</label>
+<input type="date" name="date_signed" class="form-control">
+
+
+</div>
+
+      <div class="modal-footer">
+
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancel
+        </button>
+
+        <button type="submit" class="btn btn-primary">
+            Save Inspection
+        </button>
+
+      </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<style>
+.modal-body {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+</style>
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

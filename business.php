@@ -36,18 +36,18 @@ if(!isset($_SESSION["user"])){
         <nav class="sidebar-nav mt-3">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">
+                    <a class="nav-link" href="dashboard.php">
                         <i class="fas fa-tachometer-alt"></i>
                         Dashboard
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link active" href="business.php">
                     <i class="fas fa-store"></i> Businesses
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="inspections.php">
                     <i class="fas fa-search"></i> Inspections
                     </a>
                 </li>
