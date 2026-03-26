@@ -213,3 +213,24 @@ function editInspection(id){
     });
 
 }
+
+
+
+//delete 
+
+function deleteInspection(id){
+
+    if(!confirm("Delete this inspection?"))
+        return;
+
+    $.post(
+        "php/delete/delete_inspection.php",
+        { id:id },
+        function(){
+
+            loadInspections();
+
+        }
+    );
+
+}
