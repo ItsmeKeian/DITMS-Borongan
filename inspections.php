@@ -107,17 +107,30 @@ if(!isset($_SESSION["user"])){
                 <p class="mb-0 text-muted">Borongan City, Eastern Samar</p>
             </div>
             <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary">
-                    <i class="fas fa-download me-2"></i>Export
-                </button>
-                <button class="btn btn-primary"
-                onclick="openAddModal()">
 
-                <i class="fas fa-plus me-2"></i>
-                New Inspection
+                <input
+                    type="text"
+                    id="searchInspection"
+                    class="form-control"
+                    placeholder="Search business / owner"
+                    style="width:250px;"
+                >
+                
+                <button class="btn btn-outline-primary"
+                   onclick="exportExcel()">
 
-                </button>
-            </div>
+                   <i class="fas fa-download me-2"></i>
+                   Export
+
+               </button>
+               <button class="btn btn-primary"
+               onclick="openAddModal()">
+
+               <i class="fas fa-plus me-2"></i>
+               New Inspection
+
+               </button>
+           </div>
         </div>
 
      

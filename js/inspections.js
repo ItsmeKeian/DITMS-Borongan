@@ -1,101 +1,114 @@
-//retrieve
+//retrieve and search
 $(document).ready(function(){
 
     loadInspections();
 
+    $("#searchInspection").on("keyup", function(){
+
+        let s = $(this).val();
+
+        loadInspections(s);
+
+    });
+
 });
 
 
-function loadInspections(){
+// =========================
+// LOAD TABLE
+// =========================
 
-    $.get("php/get/get_inspections.php", function(data){
+function loadInspections(search = "") {
 
-        let rows = JSON.parse(data);
+    $.get(
+        "php/get/get_inspections.php",
+        { search: search },
+        function (data) {
 
-        let html = "";
+            let rows = JSON.parse(data);
 
-        rows.forEach(r => {
+            let html = "";
 
+            rows.forEach(r => {
 
-            // STATUS
+                // STATUS
 
-            let statusBadge = "<span class='badge bg-success'>Active</span>";
+                let statusBadge = "<span class='badge bg-success'>Active</span>";
 
-            if(r.operation_status == "Closed")
-                statusBadge = "<span class='badge bg-danger'>Closed</span>";
+                if (r.operation_status == "Closed")
+                    statusBadge = "<span class='badge bg-danger'>Closed</span>";
 
-            if(r.operation_status == "New")
-                statusBadge = "<span class='badge bg-primary'>New</span>";
+                if (r.operation_status == "New")
+                    statusBadge = "<span class='badge bg-primary'>New</span>";
 
-            if(r.operation_status == "Unregistered")
-                statusBadge = "<span class='badge bg-warning'>Unregistered</span>";
-
-
-
-            // FINDINGS
-
-            let findingsBadge = "<span class='badge bg-success'>OK</span>";
-
-            if(r.no_mayor_permit == 1)
-                findingsBadge = "<span class='badge bg-danger'>No Permit</span>";
-
-            else if(r.expired_permit == 1)
-                findingsBadge = "<span class='badge bg-warning'>Expired</span>";
+                if (r.operation_status == "Unregistered")
+                    statusBadge = "<span class='badge bg-warning'>Unregistered</span>";
 
 
 
-            html += `
+                // FINDINGS
 
-            <tr>
+                let findingsBadge = "<span class='badge bg-success'>OK</span>";
 
-            <td>${r.business_name}</td>
+                if (r.no_mayor_permit == 1)
+                    findingsBadge = "<span class='badge bg-danger'>No Permit</span>";
 
-            <td>${r.owner_name}</td>
+                else if (r.expired_permit == 1)
+                    findingsBadge = "<span class='badge bg-warning'>Expired</span>";
 
-            <td>${r.barangay}</td>
 
-            <td>${r.date_of_inspection}</td>
 
-            <td>${r.type_of_business ?? ""}</td>
+                html += `
 
-            <td>${statusBadge}</td>
+                <tr>
 
-            <td>${findingsBadge}</td>
+                <td>${r.business_name}</td>
 
-            <td>
+                <td>${r.owner_name}</td>
 
-            <button class="btn btn-sm btn-outline-primary"
-            onclick="viewInspection(${r.id})">
+                <td>${r.barangay}</td>
 
-            <i class="fas fa-eye"></i>
+                <td>${r.date_of_inspection}</td>
 
-            </button>
+                <td>${r.type_of_business ?? ""}</td>
 
-            <button class="btn btn-sm btn-outline-warning"
-            onclick="editInspection(${r.id})">
+                <td>${statusBadge}</td>
 
-            <i class="fas fa-edit"></i>
+                <td>${findingsBadge}</td>
 
-            </button>
+                <td>
 
-            <button class="btn btn-sm btn-outline-danger"
-            onclick="deleteInspection(${r.id})">
+                <button class="btn btn-sm btn-outline-primary"
+                onclick="viewInspection(${r.id})">
 
-            <i class="fas fa-trash"></i>
+                <i class="fas fa-eye"></i>
 
-            </button>
+                </button>
 
-            </td>
+                <button class="btn btn-sm btn-outline-warning"
+                onclick="editInspection(${r.id})">
 
-            </tr>
+                <i class="fas fa-edit"></i>
 
-            `;
+                </button>
+
+                <button class="btn btn-sm btn-outline-danger"
+                onclick="deleteInspection(${r.id})">
+
+                <i class="fas fa-trash"></i>
+
+                </button>
+
+                </td>
+
+                </tr>
+
+                `;
+            });
+
+            $("#inspectionTable").html(html);
 
         });
-
-        $("#inspectionTable").html(html);
-
-    });
 
 }
 
@@ -254,12 +267,6 @@ function viewInspection(id){
 
 
 
-$(document).ready(function(){
-
-    loadInspections();
-
-});
-
 
 // ================= ADD MODAL =================
 
@@ -279,5 +286,11 @@ function openAddModal(){
 }
 
 
-// ================= EDIT =================
+// ================= EXPORT=================
 
+function exportExcel(){
+
+    window.location =
+    "/ditms-borongan/php/export/export_excel.php";
+
+}
