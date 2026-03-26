@@ -140,7 +140,14 @@ function editInspection(id){
         $("textarea[name=declared_nature]").val(r.declared_nature);
         $("textarea[name=actual_nature]").val(r.actual_nature);
 
+            
+        $("input[name=activity_matches]")
+            .prop("checked", r.activity_matches == 1);
+
+            $("input[name=activity_not_match]")
+            .prop("checked", r.activity_not_match == 1);
         $("input[name=psic_code]").val(r.psic_code);
+
 
         $("select[name=type_of_business]").val(r.type_of_business);
         $("select[name=operation_status]").val(r.operation_status);
@@ -151,7 +158,7 @@ function editInspection(id){
 
         $("select[name=additional_support]").val(r.additional_support);
 
-        $("input[name=remarks]").val(r.remarks);
+        $("textarea[name=remarks]").val(r.remarks);
 
         // FINDINGS
 
@@ -234,3 +241,43 @@ function deleteInspection(id){
     );
 
 }
+
+
+//view
+
+function viewInspection(id){
+
+    window.location =
+    "php/view/view_inspection.php?id=" + id;
+
+}
+
+
+
+$(document).ready(function(){
+
+    loadInspections();
+
+});
+
+
+// ================= ADD MODAL =================
+
+function openAddModal(){
+
+    $("#inspectionForm")[0].reset();
+
+    $("#inspection_id").val("");
+
+    $("#inspectionForm").attr(
+        "action",
+        "php/create/create_inspection.php"
+    );
+
+    $("#addInspectionModal").modal("show");
+
+}
+
+
+// ================= EDIT =================
+

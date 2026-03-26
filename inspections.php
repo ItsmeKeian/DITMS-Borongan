@@ -110,8 +110,12 @@ if(!isset($_SESSION["user"])){
                 <button class="btn btn-outline-primary">
                     <i class="fas fa-download me-2"></i>Export
                 </button>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addInspectionModal">
-                    <i class="fas fa-plus me-2"></i>New Inspection
+                <button class="btn btn-primary"
+                onclick="openAddModal()">
+
+                <i class="fas fa-plus me-2"></i>
+                New Inspection
+
                 </button>
             </div>
         </div>
