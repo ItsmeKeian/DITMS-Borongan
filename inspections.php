@@ -231,217 +231,347 @@ if(!isset($_SESSION["user"])){
 
 <!-- ================= GENERAL ================= -->
 
-<h6 class="fw-bold">General Information</h6>
+            <h6 class="fw-bold">General Information</h6>
 
-<div class="row">
+                <div class="row">
 
-    <div class="col-md-4">
-        <label>Date</label>
-        <input type="date" name="date_of_inspection" class="form-control">
-    </div>
+                    <div class="col-md-4">
+                        <label>Date of inspection:</label>
+                        <input type="date" name="date_of_inspection" class="form-control">
+                    </div>
 
-    <div class="col-md-4">
-        <label>Time</label>
-        <input type="time" name="time_of_inspection" class="form-control">
-    </div>
+                    <div class="col-md-4">
+                        <label>Time:</label>
+                        <input type="time" name="time_of_inspection" class="form-control">
+                    </div>
 
-    <div class="col-md-4">
-        <label>Barangay</label>
-        <input type="text" name="barangay" class="form-control">
-    </div>
+                    <div class="col-md-4">
+                        <label>Barangay:</label>
+                        <input type="text" name="barangay" class="form-control">
+                    </div>
 
-</div>
+                </div>
 
-<hr>
+            <hr>
 
 
 <!-- ================= BUSINESS ================= -->
 
-<h6 class="fw-bold">Business Information</h6>
+                <h6 class="fw-bold">Business Information</h6>
 
-<div class="row">
+                <div class="row">
 
-    <div class="col-md-6">
-        <label>Business Name</label>
-        <input type="text" name="business_name" class="form-control">
-    </div>
+                    <div class="col-md-6">
+                        <label>Business Name:</label>
+                        <input type="text" name="business_name" class="form-control">
+                    </div>
 
-    <div class="col-md-6">
-        <label>Trade Name</label>
-        <input type="text" name="trade_name" class="form-control">
-    </div>
+                    <div class="col-md-6">
+                        <label>Trade Name (if any):</label>
+                        <input type="text" name="trade_name" class="form-control">
+                    </div>
 
-    <div class="col-md-6">
-        <label>Owner Name</label>
-        <input type="text" name="owner_name" class="form-control">
-    </div>
+                    <div class="col-md-6">
+                        <label>Owner's Name:</label>
+                        <input type="text" name="owner_name" class="form-control">
+                    </div>
 
-    <div class="col-md-6">
-        <label>Contact Number</label>
-        <input type="text" name="contact_number" class="form-control">
-    </div>
+                    <div class="col-md-6">
+                        <label>Contact Number:</label>
+                        <input type="text" name="contact_number" class="form-control">
+                    </div>
 
-</div>
+                </div>
 
-<hr>
+            <hr>
 
 
 <!-- ================= REGISTRATION ================= -->
 
-<h6 class="fw-bold">Registration Status</h6>
+                <h6 class="fw-bold">Registration Status</h6>
 
-<div class="row">
+                    <div class="row">
 
-<div class="col-md-3">
-<label>Mayor Permit</label>
-<select name="mayor_permit" class="form-control">
-<option value="">Select</option>
-<option>Yes</option>
-<option>No</option>
-</select>
-</div>
+                        <div class="col-md-3">
+                            <label>Mayor Permit</label>
+                                <select name="mayor_permit" class="form-control">
+                                    <option value="">Select</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                        </div>
 
-<div class="col-md-3">
-<label>Barangay Clearance</label>
-<select name="barangay_clearance" class="form-control">
-<option value="">Select</option>
-<option>Yes</option>
-<option>No</option>
-</select>
-</div>
+                        <div class="col-md-3">
+                            <label>Barangay Clearance</label>
+                                <select name="barangay_clearance" class="form-control">
+                                    <option value="">Select</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                        </div>
 
-<div class="col-md-3">
-<label>DTI / SEC / CDA</label>
-<select name="dti_sec_cda" class="form-control">
-<option value="">Select</option>
-<option>Yes</option>
-<option>No</option>
-</select>
-</div>
+                        <div class="col-md-3">
+                            <label>DTI / SEC / CDA</label>
+                                <select name="dti_sec_cda" class="form-control">
+                                    <option value="">Select</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                        </div>
 
-<div class="col-md-3">
-<label>BIR</label>
-<select name="bir_registration" class="form-control">
-<option value="">Select</option>
-<option>Yes</option>
-<option>No</option>
-</select>
-</div>
+                        <div class="col-md-3">
+                            <label>BIR Registration</label>
+                                <select name="bir_registration" class="form-control">
+                                    <option value="">Select</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
+                                </select>
+                        </div>
 
-</div>
+                    </div>
 
-<div class="row mt-2">
+                    <div class="row mt-2">
 
-<div class="col-md-6">
-<label>Permit Number</label>
-<input type="text" name="permit_number" class="form-control">
-</div>
+                        <div class="col-md-6">
+                            <label>Permit Number (if available):</label>
+                            <input type="text" name="permit_number" class="form-control">
+                        </div>
 
-<div class="col-md-6">
-<label>Year Last Registered</label>
-<input type="text" name="year_last_registered" class="form-control">
-</div>
+                        <div class="col-md-6">
+                            <label>Year Last Registered:</label>
+                            <input type="text" name="year_last_registered" class="form-control">
+                        </div>
 
-</div>
-
-<hr>
-
-
-<!-- ================= BUSINESS DETAILS ================= -->
-
-<h6 class="fw-bold">Business Details</h6>
-
-<label>Declared Nature</label>
-<textarea name="declared_nature" class="form-control"></textarea>
-
-<label class="mt-2">Actual Nature</label>
-<textarea name="actual_nature" class="form-control"></textarea>
-
-<div class="row mt-2">
-
-<div class="col-md-4">
-<label>Floor Area</label>
-<input type="text" name="floor_area">
-</div>
-
-<div class="col-md-4">
-<label>Male Employees</label>
-<input type="number" name="male_employees">
-</div>
-
-<div class="col-md-4">
-<label>Female Employees</label>
-<input type="number" name="female_employees">
-</div>
-
-</div>
+                    </div>
 
 <hr>
 
 
-<!-- ================= FINDINGS ================= -->
+            <!-- ================= BUSINESS DETAILS ================= -->
 
-<h6 class="fw-bold">Tax Mapping Findings</h6>
+            <h6 class="fw-bold">Business Details</h6>
 
-<div class="form-check">
-<input type="checkbox" name="no_mayor_permit" value="1">
-<label>Operating without Mayor Permit</label>
-</div>
+                <label>Declared Nature of Business:</label>
+                    <textarea name="declared_nature" class="form-control"></textarea>
 
-<div class="form-check">
-<input type="checkbox" name="expired_permit" value="1">
-<label>Expired Permit</label>
-</div>
+                <label class="mt-2">Actual Nature of Business:</label>
+                    <textarea name="actual_nature" class="form-control"></textarea>
 
-<div class="form-check">
-<input type="checkbox" name="change_nature" value="1">
-<label>Change in nature</label>
-</div>
+            <br>
 
-<div class="form-check">
-<input type="checkbox" name="change_address" value="1">
-<label>Change address</label>
-</div>
+                <div class="form-check">
+                    <input type="checkbox" name="activity_matches" value="1">
+                    <label>Declared activity matches actual operation</label>
+                </div>
 
-<div class="form-check">
-<input type="checkbox" name="additional_line" value="1">
-<label>Additional line</label>
-</div>
+                <div class="form-check">
+                    <input type="checkbox" name="activity_not_match" value="1">
+                    <label>Declared activity does NOT match actual operation</label>
+                </div>
 
-<label>Others</label>
-<input type="text" name="others" class="form-control">
+                <label>PSIC Code (if know):</label>
+                <input type="text" name="psic_code" class="form-control">
+
+
+<br>
+
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <h6>Type of Business:</h6>
+
+                        <select name="type_of_business" class="form-control">
+                            <option value="">Select</option>
+                            <option>Single Proprietorship</option>
+                            <option>Partnership</option>
+                            <option>Corporation</option>
+                            <option>Cooperative</option>
+                        </select>
+                    </div>
+
+                <div class="col-md-4">
+                    <h6>Business Operation Status:</h6>
+
+                    <select name="operation_status" class="form-control">
+                        <option value="">Select</option>
+                        <option>New</option>
+                        <option>Existing</option>
+                        <option>Unregistered</option>
+                        <option>Closed</option>
+                        <option>Transferred</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <h6>Physical & Operation Data</h6>
+
+                    <input type="text" name="floor_area" class="form-control" placeholder="Floor Area (sqm):">
+                </div>
+
+
+                </div>
+<br>
+
+                <h6 class="fw-bold">Number of Employees</h6>
+
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label>Male Employees</label>
+                        <input type="number" name="male_employees" class="form-control">
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Female Employees</label>
+                        <input type="number" name="female_employees" class="form-control">
+                    </div>
+                </div>
+
+<br>
+
+
+                <div class="row">
+                    <h6>Compliance with other requirements</h6>
+
+                    <div class="col-md-4">
+                        <h6>Sanitary Permit:</h6>
+
+                        <select name="sanitary_permit" class="form-control">
+                            <option value="">Select</option>
+                            <option>Yes</option>
+                            <option>No</option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h6>Fire Safety Inspection Cert:</h6>
+
+                        <select name="fire_cert" class="form-control">
+                            <option value="">Select</option>
+                            <option>Yes</option>
+                            <option>No</option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <h6>Mayor's Permit Displayed:</h6>
+
+                        <select name="permit_displayed" class="form-control">
+                            <option value="">Select</option>
+                            <option>Yes</option>
+                            <option>No</option>
+                        </select>
+                    </div>
+
+
+                </div>
+
+<br>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                    <h6>Additional Support Doc:</h6>
+
+                    <select name="additional_support" class="form-control">
+                        <option value="">Select</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+
+                    </div>
+
+                </div>
+
+<br>
+
+                <div class="row">
+
+                <div class="col-md-12">
+                    <h6>Remarks:</h6>
+
+                    <textarea name="remarks" class="form-control"></textarea>
+
+                </div>
+
+                </div>
+
+
+
+
+
+
 
 
 <hr>
 
 
-<!-- ================= ACTION ================= -->
+        <!-- ================= FINDINGS ================= -->
 
-<h6 class="fw-bold">Action Taken</h6>
+        <h6 class="fw-bold">Tax Mapping Findings</h6>
 
-<div class="form-check">
-<input type="checkbox" name="notice_register" value="1">
-<label>Notice to register</label>
-</div>
+            <label>(check all that apply)</label>
 
-<div class="form-check">
-<input type="checkbox" name="notice_violation" value="1">
-<label>Notice violation</label>
-</div>
+                <div class="form-check">
+                    <input type="checkbox" name="no_mayor_permit" value="1">
+                    <label>Operating without Mayor Permit</label>
+                </div>
 
-<div class="form-check">
-<input type="checkbox" name="reassessment" value="1">
-<label>Reassessment</label>
-</div>
+                <div class="form-check">
+                    <input type="checkbox" name="expired_permit" value="1">
+                    <label>Expired Permit</label>
+                </div>
 
-<label>Compliance days</label>
-<input type="text" name="compliance_days" class="form-control">
+                <div class="form-check">
+                    <input type="checkbox" name="change_nature" value="1">
+                    <label>Change in nature</label>
+                </div>
 
-<label>Referred to</label>
-<input type="text" name="referred_to" class="form-control">
+                <div class="form-check">
+                    <input type="checkbox" name="change_address" value="1">
+                    <label>Change address</label>
+                </div>
 
-<label>Remarks</label>
-<textarea name="action_remarks" class="form-control"></textarea>
+                <div class="form-check">
+                    <input type="checkbox" name="additional_line" value="1">
+                    <label>Additional line</label>
+                </div>
+
+                <label>Others</label>
+                <input type="text" name="others" class="form-control">
+
+
+<hr>
+
+
+    <!-- ================= ACTION ================= -->
+
+            <h6 class="fw-bold">Action Taken</h6>
+
+            <div class="form-check">
+                <input type="checkbox" name="notice_register" value="1">
+                <label>Notice to register</label>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" name="notice_violation" value="1">
+                <label>Notice violation</label>
+            </div>
+
+            <div class="form-check">
+                <input type="checkbox" name="reassessment" value="1">
+                <label>Reassessment</label>
+            </div>
+
+            <label>Compliance days</label>
+                <input type="text" name="compliance_days" class="form-control">
+
+            <label>Referred to</label>
+                <input type="text" name="referred_to" class="form-control">
+
+            <label>Remarks</label>
+                <textarea name="action_remarks" class="form-control"></textarea>
 
 
 <hr>
@@ -451,7 +581,7 @@ if(!isset($_SESSION["user"])){
 
 <h6 class="fw-bold">Inspector</h6>
 
-<label>Inspector Name</label>
+<label>Inspector / Auditor Name:</label>
 <input type="text" name="inspector_name" class="form-control">
 
 <label>Date</label>

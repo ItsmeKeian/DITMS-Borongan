@@ -8,24 +8,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
        INSPECTIONS
     ========================= */
 
-    $date = $_POST["date_of_inspection"];
-    $time = $_POST["time_of_inspection"];
-    $barangay = $_POST["barangay"];
+    $date = $_POST["date_of_inspection"] ?? null;
+    $time = $_POST["time_of_inspection"] ?? null;
+    $barangay = $_POST["barangay"] ?? "";
 
-    $business_name = $_POST["business_name"];
-    $trade_name = $_POST["trade_name"];
-    $owner_name = $_POST["owner_name"];
-    $contact = $_POST["contact_number"];
+    $business_name = $_POST["business_name"] ?? "";
+    $trade_name = $_POST["trade_name"] ?? "";
+    $owner_name = $_POST["owner_name"] ?? "";
+    $contact = $_POST["contact_number"] ?? "";
 
-    $declared = $_POST["declared_nature"];
-    $actual = $_POST["actual_nature"];
+    $declared = $_POST["declared_nature"] ?? "";
+    $actual = $_POST["actual_nature"] ?? "";
 
-    $floor_area = $_POST["floor_area"];
-    $male = $_POST["male_employees"];
-    $female = $_POST["female_employees"];
+    $activity_match = $_POST["activity_matches"] ?? 0;
+    $activity_not_match = $_POST["activity_not_match"] ?? 0;
+    $psic_code = $_POST["psic_code"] ?? "";
+    $businesstype = $_POST["type_of_business"] ?? "";
+    $operation_status = $_POST["operation_status"] ?? "";
+    $additional_support = $_POST["additional_support"] ?? "";
+    $inspec_remarks = $_POST["remarks"] ?? "";
+ 
+
+
+
+    $floor_area = $_POST["floor_area"] ?? "";
+    $male = $_POST["male_employees"] ?? 0;
+    $female = $_POST["female_employees"] ?? 0;
+
+    $inspector = $_POST["inspector_name"] ?? "";
+    $date_signed = $_POST["date_signed"] ?? null;
 
 
     $stmt = $conn->prepare("
+
         INSERT INTO inspections (
 
             date_of_inspection,
@@ -40,13 +55,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             declared_nature,
             actual_nature,
 
+            activity_matches,
+            activity_not_match,
+            psic_code,
+            type_of_business,
+            operation_status,
+            additional_support,
+            remarks,
+
             floor_area,
             male_employees,
-            female_employees
+            female_employees,
+
+            inspector_name,
+            date_signed
 
         )
 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+
     ");
 
     $stmt->execute([
@@ -63,12 +90,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $declared,
         $actual,
 
+        $activity_match,
+        $activity_not_match,
+        $psic_code,
+        $businesstype,
+        $operation_status,
+        $additional_support,
+        $inspec_remarks,
+
         $floor_area,
         $male,
-        $female
+        $female,
+
+        $inspector,
+        $date_signed
 
     ]);
-
 
 
     /* =========================
@@ -88,11 +125,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dti = $_POST["dti_sec_cda"] ?? "";
     $bir = $_POST["bir_registration"] ?? "";
 
-    $permit = $_POST["permit_number"];
-    $year = $_POST["year_last_registered"];
+    $permit = $_POST["permit_number"] ?? "";
+    $year = $_POST["year_last_registered"] ?? "";
 
 
     $stmt2 = $conn->prepare("
+
         INSERT INTO registration_status (
 
             inspection_id,
@@ -106,6 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         )
 
         VALUES (?,?,?,?,?,?,?)
+
     ");
 
     $stmt2->execute([
@@ -133,36 +172,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $additional = $_POST["additional_line"] ?? 0;
     $others = $_POST["others"] ?? "";
 
+    $notice_register = $_POST["notice_register"] ?? 0;
+    $notice_violation = $_POST["notice_violation"] ?? 0;
+    $reassessment = $_POST["reassessment"] ?? 0;
+
+    $compliance = $_POST["compliance_days"] ?? "";
+    $referred = $_POST["referred_to"] ?? "";
+    $action_remarks = $_POST["action_remarks"] ?? "";
+
+    $sanitary_permit = $_POST["sanitary_permit"] ?? "";
+    $fire_cert = $_POST["fire_cert"] ?? "";
+    $permit_displayed = $_POST["permit_displayed"] ?? "";
+
+
+
 
     $stmt3 = $conn->prepare("
+
         INSERT INTO findings (
 
             inspection_id,
+
             no_mayor_permit,
             expired_permit,
             change_nature,
             change_address,
             additional_line,
-            others
+            others,
+
+            notice_register,
+            notice_violation,
+            compliance_days,
+            reassessment,
+            referred_to,
+            action_remarks,
+
+            sanitary_permit,
+            fire_cert,
+            permit_displayed
 
         )
 
-        VALUES (?,?,?,?,?,?,?)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+
     ");
 
     $stmt3->execute([
 
         $inspection_id,
+
         $no_mayor,
         $expired,
         $change_nature,
         $change_address,
         $additional,
-        $others
+        $others,
+
+        $notice_register,
+        $notice_violation,
+        $compliance,
+        $reassessment,
+        $referred,
+        $action_remarks,
+
+        $sanitary_permit,
+        $fire_cert,
+        $permit_displayed
 
     ]);
 
 
+
     header("Location: ../../inspections.php");
     exit();
+
 }
