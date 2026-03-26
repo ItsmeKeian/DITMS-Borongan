@@ -52,7 +52,7 @@ if(!isset($_SESSION["user"])){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="taxmapping.php">
                     <i class="fas fa-map-marked-alt"></i> Tax Mapping
                     </a>
                 </li>
