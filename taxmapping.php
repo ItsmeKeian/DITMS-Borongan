@@ -16,13 +16,11 @@ if(!isset($_SESSION["user"])){
     <title>Digital Inspection and Tax Mapping System</title>
     <link href="assets/img/borlogo.png" rel="icon">
     
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
 
     <link href="assets/css/dashboard.css" rel="stylesheet">
-    
-    <!-- FontAwesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/all.min.css">
     
   
 </head>
@@ -257,8 +255,8 @@ if(!isset($_SESSION["user"])){
         </div>
     </main>
 
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery-4.0.0.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
     
     <script>
         // Sidebar toggle for mobile
