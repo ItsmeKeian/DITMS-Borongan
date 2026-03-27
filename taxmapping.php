@@ -110,53 +110,7 @@ if(!isset($_SESSION["user"])){
            
         </div>
 
-        <!-- Stats Cards -->
-        <div class="row g-4 mb-5">
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number">1,247</div>
-                            <div class="stat-label">Total Businesses</div>
-                            <i class="fas fa-users stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number">892</div>
-                            <div class="stat-label">Inspected</div>
-                            <i class="fas fa-boxes stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number">56</div>
-                            <div class="stat-label">Pending Inspection</div>
-                            <i class="fas fa-coins stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number">35</div>
-                            <div class="stat-label">Violations</div>
-                            <i class="fas fa-chart-line stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+      
 
       
         <!-- Map -->
@@ -177,6 +131,7 @@ if(!isset($_SESSION["user"])){
                             <label>Barangay</label>
                             <select class="form-control" id="filterBarangay">
                                 <option value="">All</option>
+                                <option value="">Songco</option>
                             </select>
                         </div>
 
@@ -192,6 +147,21 @@ if(!isset($_SESSION["user"])){
                         <div class="mb-2">
                             <label>Search</label>
                             <input type="text" id="filterSearch" class="form-control">
+                        </div>
+
+
+                        <hr>
+
+                        <h6>Legend</h6>
+
+                        <div class="legend">
+
+                            <div><span class="box green"></span> Existing</div>
+                            <div><span class="box red"></span> Unregistered</div>
+                            <div><span class="box blue"></span> New</div>
+                            <div><span class="box gray"></span> Closed</div>
+                            <div><span class="box orange"></span> Transferred</div>
+
                         </div>
 
                     </div>
@@ -212,7 +182,7 @@ if(!isset($_SESSION["user"])){
 
                             <div class="card-body">
 
-                                <div id="map" style="height:500px;"></div>
+                                <div id="map" style="height:640px;"></div>
 
                             </div>
 
@@ -225,42 +195,254 @@ if(!isset($_SESSION["user"])){
 
      <script src="assets/js/jquery-4.0.0.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+
+
+.legend div {
+    font-size:12px;
+    margin-bottom:4px;
+}
+
+.box {
+    display:inline-block;
+    width:12px;
+    height:12px;
+    margin-right:5px;
+}
+
+.green { background:#28a745; }
+.red { background:#dc3545; }
+.blue { background:#007bff; }
+.gray { background:#6c757d; }
+.orange { background:#fd7e14; }
+
+
+
+.leaflet-tooltip.custom-label {
+    padding: 3px 6px;
+    font-size: 11px;
+    font-weight: bold;
+    border-radius: 4px;
+    border: 2px solid black;
+}
+
+
+/* COLORS */
+
+.leaflet-tooltip.label-green {
+    background: #28a745;
+    border-color: #1e7e34;
+    color: white;
+}
+
+.leaflet-tooltip.label-blue {
+    background: #007bff;
+    border-color: #0056b3;
+    color: white;
+}
+
+.leaflet-tooltip.label-red {
+    background: #dc3545;
+    border-color: #a71d2a;
+    color: white;
+}
+
+.leaflet-tooltip.label-orange {
+    background: #fd7e14;
+    border-color: #c05600;
+    color: white;
+}
+
+.leaflet-tooltip.label-gray {
+    background: #6c757d;
+    border-color: #343a40;
+    color: white;
+}
+
+
+/* building icon */
+
+.business-icon {
+
+    width:35px;
+    height:35px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:18px;
+
+}
+
+</style>
     
-    <script>
-        // Sidebar toggle for mobile
-        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').style.transform = 
-                document.querySelector('.sidebar').style.transform === 'translateX(-100%)' ? 
-                'translateX(0)' : 'translateX(-100%)';
+<script>
+
+// ================= SIDEBAR =================
+
+const sidebar = document.querySelector('.sidebar');
+const toggleBtn = document.querySelector('.sidebar-toggle');
+
+if (toggleBtn) {
+
+    toggleBtn.addEventListener('click', function () {
+
+        sidebar.style.transform =
+            sidebar.style.transform === 'translateX(-100%)'
+            ? 'translateX(0)'
+            : 'translateX(-100%)';
+
+    });
+
+}
+
+
+document.addEventListener('click', function (event) {
+
+    if (!sidebar || !toggleBtn) return;
+
+    if (
+        window.innerWidth <= 992 &&
+        !sidebar.contains(event.target) &&
+        !toggleBtn.contains(event.target)
+    ) {
+        sidebar.style.transform = 'translateX(-100%)';
+    }
+
+});
+
+
+
+// ================= MAP =================
+
+let map;
+let markerLayer;
+
+
+
+$(document).ready(function () {
+
+    map = L.map('map').setView(
+        [11.6087, 125.4319],
+        13
+    );
+
+
+    L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    ).addTo(map);
+
+
+    markerLayer = L.layerGroup().addTo(map);
+
+
+    loadMarkers();
+
+
+    // FILTER EVENTS
+
+    $("#filterBarangay").on("change", loadMarkers);
+    $("#filterStatus").on("change", loadMarkers);
+    $("#filterSearch").on("keyup", loadMarkers);
+
+});
+
+
+// ================= LOAD MARKERS =================
+
+function loadMarkers() {
+
+let barangay = $("#filterBarangay").val();
+let status = $("#filterStatus").val();
+let search = $("#filterSearch").val();
+
+markerLayer.clearLayers();
+
+$.get(
+    "php/get/get_map_locations.php",
+    {
+        barangay: barangay,
+        status: status,
+        search: search
+    },
+    function (data) {
+
+        let rows = JSON.parse(data);
+
+        rows.forEach(r => {
+
+            if (!r.latitude || !r.longitude)
+                return;
+
+
+            // ===== COLOR CLASS =====
+
+            let className = "custom-label label-blue";
+
+            if (r.operation_status === "Existing")
+                className = "custom-label label-green";
+
+            if (r.operation_status === "Unregistered")
+                className = "custom-label label-red";
+
+            if (r.operation_status === "Closed")
+                className = "custom-label label-gray";
+
+            if (r.operation_status === "Transferred")
+                className = "custom-label label-orange";
+
+            if (r.operation_status === "New")
+                className = "custom-label label-blue";
+
+
+            // ===== ICON =====
+
+            let icon = L.divIcon({
+                className: "",
+                html: "<div class='business-icon'>🏢</div>",
+                iconSize: [26,26]
+            });
+
+
+            let marker = L.marker(
+                [r.latitude, r.longitude],
+                { icon: icon }
+            ).addTo(markerLayer);
+
+
+            // ===== TOOLTIP =====
+
+            marker.bindTooltip(
+                r.business_name,
+                {
+                    permanent: true,
+                    direction: "top",
+                    offset: [0, -15],
+                    className: className
+                }
+            );
+
+
+            // ===== POPUP =====
+
+            marker.bindPopup(
+
+                "<b>" + r.business_name + "</b><br>" +
+                r.owner_name + "<br>" +
+                r.barangay + "<br>" +
+                r.operation_status
+
+            );
+
         });
 
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', function(event) {
-            const sidebar = document.querySelector('.sidebar');
-            const toggle = document.querySelector('.sidebar-toggle');
-            
-            if (window.innerWidth <= 992 && 
-                !sidebar.contains(event.target) && 
-                !toggle.contains(event.target)) {
-                sidebar.style.transform = 'translateX(-100%)';
-            }
-        });
+    }
+);
 
+}
 
-            // map
-        var map = L.map('map').setView([11.6087, 125.4319], 13); // Borongan
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: 'Map data'
-            }).addTo(map);
-
-
-            // test marker
-            L.marker([11.6087, 125.4319])
-                .addTo(map)
-                .bindPopup("Borongan City Hall")
-                .openPopup();
-
-    </script>
+</script>
+    
 </body>
 </html>
