@@ -2,6 +2,7 @@
 $(document).ready(function(){
 
     loadInspections();
+    loadBusinessOptions();
 
     $("#searchInspection").on("keyup", function(){
 
@@ -121,121 +122,101 @@ function editInspection(id){
         "php/get/get_single_inspection.php?id=" + id,
         function(data){
 
-        let r = JSON.parse(data);
+            let r = JSON.parse(data);
 
-        $("#inspection_id").val(r.id);
+            // ================= BASIC =================
+            $("#inspection_id").val(r.id);
 
-        // GENERAL
+            // ================= GENERAL =================
+            $("input[name=date_of_inspection]").val(r.date_of_inspection);
+            $("input[name=time_of_inspection]").val(r.time_of_inspection);
+            $("#barangay").val(r.barangay);
 
-        $("input[name=date_of_inspection]").val(r.date_of_inspection);
-        $("input[name=time_of_inspection]").val(r.time_of_inspection);
-        $("input[name=barangay]").val(r.barangay);
+            // ================= BUSINESS (FIXED) =================
+            $("#inspection_business_id").val(r.business_id);
+            $("#business_name").val(r.business_name);
 
-        // BUSINESS
+            // SELECT DROPDOWN
+            $("#selectBusiness").val(r.business_id).trigger("change");
 
-        $("input[name=business_name]").val(r.business_name);
-        $("input[name=trade_name]").val(r.trade_name);
-        $("input[name=owner_name]").val(r.owner_name);
-        $("input[name=contact_number]").val(r.contact_number);
+            $("input[name=trade_name]").val(r.trade_name);
+            $("#owner_name").val(r.owner_name);
+            $("input[name=contact_number]").val(r.contact_number);
 
-        // REGISTRATION
+            // ================= REGISTRATION =================
+            $("select[name=mayor_permit]").val(r.mayor_permit);
+            $("select[name=barangay_clearance]").val(r.barangay_clearance);
+            $("select[name=dti_sec_cda]").val(r.dti_sec_cda);
+            $("select[name=bir_registration]").val(r.bir_registration);
 
-        $("select[name=mayor_permit]").val(r.mayor_permit);
-        $("select[name=barangay_clearance]").val(r.barangay_clearance);
-        $("select[name=dti_sec_cda]").val(r.dti_sec_cda);
-        $("select[name=bir_registration]").val(r.bir_registration);
+            $("input[name=permit_number]").val(r.permit_number);
+            $("input[name=year_last_registered]").val(r.year_last_registered);
 
-        $("input[name=permit_number]").val(r.permit_number);
-        $("input[name=year_last_registered]").val(r.year_last_registered);
+            // ================= DETAILS =================
+            $("textarea[name=declared_nature]").val(r.declared_nature);
+            $("textarea[name=actual_nature]").val(r.actual_nature);
 
-        // DETAILS
-
-        $("textarea[name=declared_nature]").val(r.declared_nature);
-        $("textarea[name=actual_nature]").val(r.actual_nature);
-
-            
-        $("input[name=activity_matches]")
-            .prop("checked", r.activity_matches == 1);
+            $("input[name=activity_matches]")
+                .prop("checked", r.activity_matches == 1);
 
             $("input[name=activity_not_match]")
-            .prop("checked", r.activity_not_match == 1);
-        $("input[name=psic_code]").val(r.psic_code);
+                .prop("checked", r.activity_not_match == 1);
 
+            $("input[name=psic_code]").val(r.psic_code);
 
-        $("select[name=type_of_business]").val(r.type_of_business);
-        $("select[name=operation_status]").val(r.operation_status);
+            $("select[name=type_of_business]").val(r.type_of_business);
+            $("select[name=operation_status]").val(r.operation_status);
 
-        $("input[name=floor_area]").val(r.floor_area);
-        $("input[name=male_employees]").val(r.male_employees);
-        $("input[name=female_employees]").val(r.female_employees);
+            $("input[name=floor_area]").val(r.floor_area);
+            $("input[name=male_employees]").val(r.male_employees);
+            $("input[name=female_employees]").val(r.female_employees);
 
-        $("select[name=additional_support]").val(r.additional_support);
+            $("select[name=additional_support]").val(r.additional_support);
+            $("textarea[name=remarks]").val(r.remarks);
 
-        $("textarea[name=remarks]").val(r.remarks);
+            // ================= FINDINGS =================
+            $("input[name=no_mayor_permit]").prop("checked", r.no_mayor_permit == 1);
+            $("input[name=expired_permit]").prop("checked", r.expired_permit == 1);
+            $("input[name=change_nature]").prop("checked", r.change_nature == 1);
+            $("input[name=change_address]").prop("checked", r.change_address == 1);
+            $("input[name=additional_line]").prop("checked", r.additional_line == 1);
 
-        // FINDINGS
+            $("input[name=others]").val(r.others);
 
-        $("input[name=no_mayor_permit]")
-        .prop("checked", r.no_mayor_permit == 1);
+            // ================= ACTION =================
+            $("input[name=notice_register]").prop("checked", r.notice_register == 1);
+            $("input[name=notice_violation]").prop("checked", r.notice_violation == 1);
+            $("input[name=reassessment]").prop("checked", r.reassessment == 1);
 
-        $("input[name=expired_permit]")
-        .prop("checked", r.expired_permit == 1);
+            $("input[name=compliance_days]").val(r.compliance_days);
+            $("input[name=referred_to]").val(r.referred_to);
 
-        $("input[name=change_nature]")
-        .prop("checked", r.change_nature == 1);
+            $("textarea[name=action_remarks]").val(r.action_remarks);
 
-        $("input[name=change_address]")
-        .prop("checked", r.change_address == 1);
+            // ================= COMPLIANCE =================
+            $("select[name=sanitary_permit]").val(r.sanitary_permit);
+            $("select[name=fire_cert]").val(r.fire_cert);
+            $("select[name=permit_displayed]").val(r.permit_displayed);
 
-        $("input[name=additional_line]")
-        .prop("checked", r.additional_line == 1);
+            // ================= LOCATION =================
+            $("#latitude").val(r.latitude);
+            $("#longitude").val(r.longitude);
 
-        $("input[name=others]").val(r.others);
+            // ================= INSPECTOR =================
+            $("input[name=inspector_name]").val(r.inspector_name);
+            $("input[name=date_signed]").val(r.date_signed);
 
-        // COMPLIANCE
+            // ================= FORM MODE =================
+            $("#inspectionForm").attr(
+                "action",
+                "php/update/update_inspection.php"
+            );
 
-        $("select[name=sanitary_permit]").val(r.sanitary_permit);
-        $("select[name=fire_cert]").val(r.fire_cert);
-        $("select[name=permit_displayed]").val(r.permit_displayed);
+            // ================= OPEN MODAL =================
+            $("#addInspectionModal").modal("show");
 
-        // ACTION
-
-        $("input[name=notice_register]")
-        .prop("checked", r.notice_register == 1);
-
-        $("input[name=notice_violation]")
-        .prop("checked", r.notice_violation == 1);
-
-        $("input[name=reassessment]")
-        .prop("checked", r.reassessment == 1);
-
-        $("input[name=compliance_days]").val(r.compliance_days);
-        $("input[name=referred_to]").val(r.referred_to);
-
-        $("textarea[name=action_remarks]")
-        .val(r.action_remarks);
-
-        // LOCATION
-
-        $("#latitude").val(r.latitude);
-        $("#longitude").val(r.longitude);
-
-        // INSPECTOR
-
-        $("input[name=inspector_name]").val(r.inspector_name);
-        $("input[name=date_signed]").val(r.date_signed);
-
-
-        // CHANGE FORM ACTION
-
-        $("#inspectionForm").attr(
-            "action",
-            "php/update/update_inspection.php"
-        );
-
-        $("#addInspectionModal").modal("show");
-
-    });
+        }
+    );
 
 }
 
@@ -317,17 +298,20 @@ function loadBusinessOptions(){
 
 }
 
-loadBusinessOptions();
 
 
 
-$("#selectBusiness").on("change", function(){
+
+$(document).on("change", "#selectBusiness", function(){
 
     let selected = $(this).find(":selected");
 
-    $("#inspection_business_id").val($(this).val());
+    let id = $(this).val();
 
-    $("input[name=business_name]").val(selected.data("name"));
+    console.log("SELECTED ID:", id); // DEBUG
+
+    $("#inspection_business_id").val(id);
+    $("#business_name").val(selected.data("name"));
     $("#owner_name").val(selected.data("owner"));
     $("#barangay").val(selected.data("barangay"));
 

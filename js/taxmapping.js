@@ -1,162 +1,139 @@
-// ================= SIDEBAR =================
+// ================= MAP =================
 
-const sidebar = document.querySelector('.sidebar');
-const toggleBtn = document.querySelector('.sidebar-toggle');
+let map;
+let markerLayer;
 
-if (toggleBtn) {
+$(document).ready(function () {
 
-    toggleBtn.addEventListener('click', function () {
+    initMap();
+    bindFilters();
+    loadMarkers();
 
-        sidebar.style.transform =
-            sidebar.style.transform === 'translateX(-100%)'
-            ? 'translateX(0)'
-            : 'translateX(-100%)';
+});
+
+
+// ================= INIT MAP =================
+
+function initMap() {
+
+    map = L.map('map').setView([11.6087, 125.4319], 13);
+
+    L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    ).addTo(map);
+
+    markerLayer = L.layerGroup().addTo(map);
+
+}
+
+
+// ================= FILTER EVENTS =================
+
+function bindFilters() {
+
+    $("#filterBarangay").on("change", loadMarkers);
+    $("#filterStatus").on("change", loadMarkers);
+
+    // Debounce search (para hindi spam request)
+    let debounceTimer;
+
+    $("#filterSearch").on("keyup", function () {
+
+        clearTimeout(debounceTimer);
+
+        debounceTimer = setTimeout(() => {
+            loadMarkers();
+        }, 300);
 
     });
 
 }
 
 
-document.addEventListener('click', function (event) {
-
-    if (!sidebar || !toggleBtn) return;
-
-    if (
-        window.innerWidth <= 992 &&
-        !sidebar.contains(event.target) &&
-        !toggleBtn.contains(event.target)
-    ) {
-        sidebar.style.transform = 'translateX(-100%)';
-    }
-
-});
-
-
-
-// ================= MAP =================
-
-let map;
-let markerLayer;
-
-
-
-$(document).ready(function () {
-
-    map = L.map('map').setView(
-        [11.6087, 125.4319],
-        13
-    );
-
-
-    L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-    ).addTo(map);
-
-
-    markerLayer = L.layerGroup().addTo(map);
-
-
-    loadMarkers();
-
-
-    // FILTER EVENTS
-
-    $("#filterBarangay").on("change", loadMarkers);
-    $("#filterStatus").on("change", loadMarkers);
-    $("#filterSearch").on("keyup", loadMarkers);
-
-});
-
-
 // ================= LOAD MARKERS =================
 
 function loadMarkers() {
 
-let barangay = $("#filterBarangay").val();
-let status = $("#filterStatus").val();
-let search = $("#filterSearch").val();
+    let barangay = $("#filterBarangay").val();
+    let status = $("#filterStatus").val();
+    let search = $("#filterSearch").val();
 
-markerLayer.clearLayers();
+    markerLayer.clearLayers();
 
-$.get(
-    "php/get/get_map_locations.php",
-    {
-        barangay: barangay,
-        status: status,
-        search: search
-    },
-    function (data) {
+    $.get(
+        "php/get/get_map_locations.php",
+        {
+            barangay: barangay,
+            status: status,
+            search: search
+        },
+        function (data) {
 
-        let rows = JSON.parse(data);
+            let rows = JSON.parse(data);
 
-        rows.forEach(r => {
+            rows.forEach(r => {
 
-            if (!r.latitude || !r.longitude)
-                return;
+                if (!r.latitude || !r.longitude) return;
 
+                let lat = parseFloat(r.latitude);
+                let lng = parseFloat(r.longitude);
 
-            // ===== COLOR CLASS =====
+                if (isNaN(lat) || isNaN(lng)) return;
 
-            let className = "custom-label label-blue";
+                // ================= STATUS COLOR =================
 
-            if (r.operation_status === "Existing")
-                className = "custom-label label-green";
+                let className = "custom-label label-gray"; // default
 
-            if (r.operation_status === "Unregistered")
-                className = "custom-label label-red";
+                if (r.operation_status === "Existing")
+                    className = "custom-label label-green";
 
-            if (r.operation_status === "Closed")
-                className = "custom-label label-gray";
+                else if (r.operation_status === "Unregistered")
+                    className = "custom-label label-red";
 
-            if (r.operation_status === "Transferred")
-                className = "custom-label label-orange";
+                else if (r.operation_status === "New")
+                    className = "custom-label label-blue";
 
-            if (r.operation_status === "New")
-                className = "custom-label label-blue";
+                else if (r.operation_status === "Closed")
+                    className = "custom-label label-gray";
 
+                else if (r.operation_status === "Transferred")
+                    className = "custom-label label-orange";
 
-            // ===== ICON =====
+                // ================= ICON =================
 
-            let icon = L.divIcon({
-                className: "",
-                html: "<div class='business-icon'>🏢</div>",
-                iconSize: [26,26]
+                let icon = L.divIcon({
+                    className: "",
+                    html: "<div class='business-icon'>🏢</div>",
+                    iconSize: [26, 26]
+                });
+
+                let marker = L.marker([lat, lng], { icon: icon })
+                    .addTo(markerLayer);
+
+                // ================= TOOLTIP =================
+
+                marker.bindTooltip(
+                    r.business_name,
+                    {
+                        permanent: true,
+                        direction: "top",
+                        offset: [0, -15],
+                        className: className
+                    }
+                );
+
+                // ================= POPUP =================
+
+                marker.bindPopup(`
+                    <b>${r.business_name}</b><br>
+                    ${r.owner_name}<br>
+                    ${r.barangay}<br>
+                    <b>Status:</b> ${r.operation_status ?? "No Inspection"}
+                `);
+
             });
 
-
-            let marker = L.marker(
-                [r.latitude, r.longitude],
-                { icon: icon }
-            ).addTo(markerLayer);
-
-
-            // ===== TOOLTIP =====
-
-            marker.bindTooltip(
-                r.business_name,
-                {
-                    permanent: true,
-                    direction: "top",
-                    offset: [0, -15],
-                    className: className
-                }
-            );
-
-
-            // ===== POPUP =====
-
-            marker.bindPopup(
-
-                "<b>" + r.business_name + "</b><br>" +
-                r.owner_name + "<br>" +
-                r.barangay + "<br>" +
-                r.operation_status
-
-            );
-
-        });
-
-    }
-);
+        }
+    );
 
 }

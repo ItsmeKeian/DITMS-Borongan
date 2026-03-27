@@ -15,6 +15,8 @@ $stmt = $conn->prepare("
 
 UPDATE inspections SET
 
+business_id=?,
+
 date_of_inspection=?,
 time_of_inspection=?,
 barangay=?,
@@ -52,6 +54,8 @@ WHERE id=?
 
 
 $stmt->execute([
+
+$_POST["business_id"],
 
 $_POST["date_of_inspection"],
 $_POST["time_of_inspection"],

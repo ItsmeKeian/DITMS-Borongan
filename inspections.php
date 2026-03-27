@@ -183,7 +183,7 @@ if(!isset($_SESSION["user"])){
 
             <form method="POST" id="inspectionForm" action="php/create/create_inspection.php">
             <input type="hidden" name="inspection_id" id="inspection_id">
-
+            <input type="hidden" name="business_name" id="business_name">
             <input type="hidden" name="business_id" id="inspection_business_id">
 
             <div class="modal-body">
@@ -548,34 +548,6 @@ if(!isset($_SESSION["user"])){
         <label>Date</label>
         <input type="date" name="date_signed" class="form-control">
 
-        <hr>
-
-        <h6 class="fw-bold">Location (Tax Mapping)</h6>
-
-        <div class="row">
-
-            <div class="col-md-5">
-                <label>Latitude</label>
-                <input type="text" name="latitude" id="latitude" class="form-control">
-            </div>
-
-            <div class="col-md-5">
-                <label>Longitude</label>
-                <input type="text" name="longitude" id="longitude" class="form-control">
-            </div>
-
-            <div class="col-md-2 d-flex align-items-end">
-                <button
-                    type="button"
-                    class="btn btn-primary w-100"
-                    onclick="openMapModal()"
-                >
-                    Pick
-                </button>
-            </div>
-
-        </div>
-
 
         </div>
 
@@ -656,7 +628,7 @@ if(!isset($_SESSION["user"])){
 <script src="assets/js/jquery-4.0.0.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="js/inspections.js"></script>
-<script src="js/mapPicker.js"></script>
+
     
 <script>
 

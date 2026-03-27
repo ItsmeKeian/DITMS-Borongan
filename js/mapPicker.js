@@ -3,30 +3,14 @@
 let mapPicker;
 let markerPicker;
 
-let activeLat = null;
-let activeLng = null;
-
-function openMapModal(type)
+function openMapModal()
 {
-    if(type === "inspection"){
-        activeLat = "#latitude";
-        activeLng = "#longitude";
-    }
-
-    if(type === "business"){
-        activeLat = "#lat_business";
-        activeLng = "#lng_business";
-    }
-
     $("#mapModal").modal("show");
-
     setTimeout(initMapPicker, 500);
 }
 
 function initMapPicker()
 {
-    if(!activeLat || !activeLng) return;
-
     if (mapPicker)
         mapPicker.remove();
 
@@ -37,8 +21,8 @@ function initMapPicker()
         'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     ).addTo(mapPicker);
 
-    let lat = parseFloat($(activeLat).val());
-    let lng = parseFloat($(activeLng).val());
+    let lat = parseFloat($("#lat_business").val());
+    let lng = parseFloat($("#lng_business").val());
 
     if (lat && lng)
     {
@@ -53,8 +37,8 @@ function initMapPicker()
         let lat = e.latlng.lat;
         let lng = e.latlng.lng;
 
-        $(activeLat).val(lat);
-        $(activeLng).val(lng);
+        $("#lat_business").val(lat);
+        $("#lng_business").val(lng);
 
         if(markerPicker)
             mapPicker.removeLayer(markerPicker);

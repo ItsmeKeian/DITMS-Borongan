@@ -8,38 +8,37 @@ $search = $_GET["search"] ?? "";
 
 $sql = "
 
-SELECT
-id,
-business_name,
-owner_name,
-barangay,
-operation_status,
-latitude,
-longitude
+SELECT 
+    b.id,
+    b.business_name,
+    b.owner_name,
+    b.barangay,
+    b.latitude,
+    b.longitude,
 
-FROM inspections
+    i.operation_status
 
-WHERE latitude IS NOT NULL
-AND longitude IS NOT NULL
+FROM businesses b
+
+LEFT JOIN inspections i 
+    ON b.id = i.business_id
+
+WHERE b.latitude IS NOT NULL
+AND b.longitude IS NOT NULL
 
 ";
 
 $params = [];
 
 if ($barangay != "") {
-    $sql .= " AND barangay = ?";
+    $sql .= " AND b.barangay = ?";
     $params[] = $barangay;
-}
-
-if ($status != "") {
-    $sql .= " AND operation_status = ?";
-    $params[] = $status;
 }
 
 if ($search != "") {
     $sql .= " AND (
-        business_name LIKE ?
-        OR owner_name LIKE ?
+        b.business_name LIKE ?
+        OR b.owner_name LIKE ?
     )";
     $params[] = "%$search%";
     $params[] = "%$search%";

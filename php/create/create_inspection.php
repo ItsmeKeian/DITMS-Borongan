@@ -8,6 +8,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
        INSPECTIONS
     ========================= */
 
+    $business_id = $_POST["business_id"] ?? null;
+
     $date = $_POST["date_of_inspection"] ?? null;
     $time = $_POST["time_of_inspection"] ?? null;
     $barangay = $_POST["barangay"] ?? "";
@@ -35,8 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $male = $_POST["male_employees"] ?? 0;
     $female = $_POST["female_employees"] ?? 0;
 
-    $latitude = $_POST["latitude"] ?? null;
-    $longitude = $_POST["longitude"] ?? null;
+  
 
     $inspector = $_POST["inspector_name"] ?? "";
     $date_signed = $_POST["date_signed"] ?? null;
@@ -45,6 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare("
 
         INSERT INTO inspections (
+
+            business_id,
 
             date_of_inspection,
             time_of_inspection,
@@ -70,19 +73,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             male_employees,
             female_employees,
 
-            latitude,
-            longitude,
+         
 
             inspector_name,
             date_signed
 
         )
 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 
     ");
 
     $stmt->execute([
+
+        $business_id,
 
         $date,
         $time,
@@ -108,8 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $male,
         $female,
 
-        $latitude,
-        $longitude,
+        
 
         $inspector,
         $date_signed
