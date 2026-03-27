@@ -128,74 +128,71 @@ if(!isset($_SESSION["user"])){
 
                     <div class="card-body">
 
-    
-
-
                         <div class="mb-2">
                             <label>Barangay</label>
                             <select class="form-control" id="filterBarangay">
                                 <option value="">All</option>
-                                <option value="">Alang-alang</option>
-                                <option value="">Amantacop</option>
-                                <option value="">Ando</option>
-                                <option value="">Balacdas</option>
-                                <option value="">Balud</option>
-                                <option value="">Banuyo</option>
-                                <option value="">Baras</option>
-                                <option value="">Bato</option>
-                                <option value="">Bayobay</option>
-                                <option value="">Benowangan</option>
-                                <option value="">Bugas</option>
-                                <option value="">Cabalagnan</option>
-                                <option value="">Cabong</option>
-                                <option value="">Cagbonga</option>
-                                <option value="">Calico-an</option>
-                                <option value="">Calingatngan</option>
-                                <option value="">Campesao</option>
-                                <option value="">can-abong</option>
-                                <option value="">Can-aga</option>
-                                <option value="">Camada</option>
-                                <option value="">Canjaway</option>
-                                <option value="">Canlaray</option>
-                                <option value="">Canyopay</option>
-                                <option value="">Divinubo</option>
-                                <option value="">Hebacong</option>
-                                <option value="">Hindang</option>
-                                <option value="">Lalawigan</option>
-                                <option value="">Libuton</option>
-                                <option value="">Locsoon</option>
-                                <option value="">Maybacong</option>
-                                <option value="">Maypangdan</option>
-                                <option value="">Pepelitan</option>
-                                <option value="">Pinanag-an</option>
-                                <option value="">Purok A (Poblacion)</option>
-                                <option value="">Purok B (Pob.)</option>
-                                <option value="">Purok C (Pob.)</option>
-                                <option value="">Purok D1 (Pob.)</option>
-                                <option value="">Purok D2 (Pob.)</option>
-                                <option value="">Purok E (Pob.)</option>
-                                <option value="">Purok F (Pob.)</option>
-                                <option value="">Purok G (Pob.)</option>
-                                <option value="">Purok H (Pob.)</option>
-                                <option value="">Punta Maria</option>
-                                <option value="">Sabang North</option>
-                                <option value="">Sabang South</option>
-                                <option value="">San Andres</option>
-                                <option value="">San Gabriel</option>
-                                <option value="">San Gregorio</option>
-                                <option value="">San Jose</option>
-                                <option value="">San Mateo</option>
-                                <option value="">San Pablo</option>
-                                <option value="">San Saturnino</option>
-                                <option value="">Santa Fe</option>
-                                <option value="">Siha</option>
-                                <option value="">Songco</option>
-                                <option value="">Sohutan</option>
-                                <option value="">Suribao</option>
-                                <option value="">Surok</option>
-                                <option value="">Taboc</option>
-                                <option value="">Tabunan</option>
-                                <option value="">Tamoso</option>
+                                <option value="Alang-alang">Alang-alang</option>
+                                <option value="Amantacop">Amantacop</option>
+                                <option value="Ando">Ando</option>
+                                <option value="Balacdas">Balacdas</option>
+                                <option value="Balud">Balud</option>
+                                <option value="Banuyo">Banuyo</option>
+                                <option value="Baras">Baras</option>
+                                <option value="Bato">Bato</option>
+                                <option value="Bayobay">Bayobay</option>
+                                <option value="Benowangan">Benowangan</option>
+                                <option value="Bugas">Bugas</option>
+                                <option value="Cabalagnan">Cabalagnan</option>
+                                <option value="Cabong">Cabong</option>
+                                <option value="Cagbonga">Cagbonga</option>
+                                <option value="Calico-an">Calico-an</option>
+                                <option value="Calingatngan">Calingatngan</option>
+                                <option value="Campesao">Campesao</option>
+                                <option value="Can-abong">Can-abong</option>
+                                <option value="Can-aga">Can-aga</option>
+                                <option value="Camada">Camada</option>
+                                <option value="Canjaway">Canjaway</option>
+                                <option value="Canlaray">Canlaray</option>
+                                <option value="Canyopay">Canyopay</option>
+                                <option value="Divinubo">Divinubo</option>
+                                <option value="Hebacong">Hebacong</option>
+                                <option value="Hindang">Hindang</option>
+                                <option value="Lalawigan">Lalawigan</option>
+                                <option value="Libuton">Libuton</option>
+                                <option value="Locso-on">Locso-on</option>
+                                <option value="Maybacong">Maybacong</option>
+                                <option value="Maypangdan">Maypangdan</option>
+                                <option value="Pepelitan">Pepelitan</option>
+                                <option value="Pinanag-an">Pinanag-an</option>
+                                <option value="Purok A (Poblacion)">Purok A (Poblacion)</option>
+                                <option value="Purok B (Pob.)">Purok B (Pob.)</option>
+                                <option value="Purok C (Pob.)">Purok C (Pob.)</option>
+                                <option value="Purok D1 (Pob.)">Purok D1 (Pob.)</option>
+                                <option value="Purok D2 (Pob.)">Purok D2 (Pob.)</option>
+                                <option value="Purok E (Pob.)">Purok E (Pob.)</option>
+                                <option value="Purok F (Pob.)">Purok F (Pob.)</option>
+                                <option value="Purok G (Pob.)">Purok G (Pob.)</option>
+                                <option value="Purok H (Pob.)">Purok H (Pob.)</option>
+                                <option value="Punta Maria">Punta Maria</option>
+                                <option value="Sabang North">Sabang North</option>
+                                <option value="Sabang South">Sabang South</option>
+                                <option value="San Andres">San Andres</option>
+                                <option value="San Gabriel">San Gabriel</option>
+                                <option value="San Gregorio">San Gregorio</option>
+                                <option value="San Jose">San Jose</option>
+                                <option value="San Mateo">San Mateo</option>
+                                <option value="San Pablo">San Pablo</option>
+                                <option value="San Saturnino">San Saturnino</option>
+                                <option value="Santa Fe">Santa Fe</option>
+                                <option value="Siha">Siha</option>
+                                <option value="Songco">Songco</option>
+                                <option value="Sohutan">Sohutan</option>
+                                <option value="Suribao">Suribao</option>
+                                <option value="Surok">Surok</option>
+                                <option value="Taboc">Taboc</option>
+                                <option value="Tabunan">Tabunan</option>
+                                <option value="Tamoso">Tamoso</option>
                                 
                             </select>
                         </div>
@@ -203,9 +200,12 @@ if(!isset($_SESSION["user"])){
                         <div class="mb-2">
                             <label>Status</label>
                             <select class="form-control" id="filterStatus">
-                                <option value="">All</option>
-                                <option value="Inspected">Inspected</option>
-                                <option value="Pending">Pending</option>
+                            <option value="">All</option>
+                            <option value="Existing">🟢 Existing</option>
+                            <option value="Unregistered">🔴 Unregistered</option>
+                            <option value="New">🔵 New</option>
+                            <option value="Closed">⚫ Closed</option>
+                            <option value="Transferred">🟠 Transferred</option>
                             </select>
                         </div>
 

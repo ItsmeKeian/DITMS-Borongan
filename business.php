@@ -23,6 +23,8 @@ if(!isset($_SESSION["user"])){
     
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     
   
 </head>
@@ -110,8 +112,8 @@ if(!isset($_SESSION["user"])){
                 <button class="btn btn-outline-primary">
                     <i class="fas fa-download me-2"></i>Export Report
                 </button>
-                <button class="btn btn-primary">
-                    <i class="fas fa-plus me-2"></i>New Record
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBusinessModal">
+                    <i class="fas fa-plus me-2"></i>New Business
                 </button>
             </div>
         </div>
@@ -182,72 +184,7 @@ if(!isset($_SESSION["user"])){
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Maria Santos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Maria Santos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Maria Santos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Maria Santos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Maria Santos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <tbody id="businessTableBody">
                                 </tbody>
                             </table>
                         </div>
@@ -257,9 +194,122 @@ if(!isset($_SESSION["user"])){
         </div>
     </main>
 
+
+
+    <!-- ADD BUSINESS MODAL -->
+<div class="modal fade" id="addBusinessModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Add Business</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form method="POST" action="php/create/create_business.php">
+
+        <div class="modal-body">
+
+          <div class="mb-2">
+            <label>Business Name</label>
+            <input type="text" name="business_name" class="form-control" required>
+          </div>
+
+          <div class="mb-2">
+            <label>Owner Name</label>
+            <input type="text" name="owner_name" class="form-control">
+          </div>
+
+          <div class="mb-2">
+            <label>Barangay</label>
+            <input type="text" name="barangay" class="form-control">
+          </div>
+
+          <div class="mb-2">
+            <label>Contact Number</label>
+            <input type="text" name="contact_number" class="form-control">
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label>Latitude</label>
+              <input type="text" name="latitude" id="lat_business" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label>Longitude</label>
+              <input type="text" name="longitude" id="lng_business" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-12 mt-2">
+            <button 
+                type="button"
+                class="btn btn-primary w-100"
+                onclick="openMapModal('business')"
+            >
+                Pick Location
+            </button>
+        </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Business</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- MAP MODAL -->
+  <div class="modal fade" id="mapModal" tabindex="-1">
+
+    <div class="modal-dialog modal-xl">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5>Select Location</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div id="mapPicker"
+                    style="height:500px;">
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+                    Done
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
     <!-- Bootstrap 5 JS -->
     <script src="assets/js/jquery-4.0.0.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="js/business.js"></script>
+    <script src="js/mapPicker.js"></script>
     
     <script>
         // Sidebar toggle for mobile
@@ -280,6 +330,9 @@ if(!isset($_SESSION["user"])){
                 sidebar.style.transform = 'translateX(-100%)';
             }
         });
+
+
+
     </script>
 </body>
 </html>

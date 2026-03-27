@@ -652,6 +652,7 @@ if(!isset($_SESSION["user"])){
 <script src="assets/js/jquery-4.0.0.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="js/inspections.js"></script>
+<script src="js/mapPicker.js"></script>
     
 <script>
 
@@ -679,67 +680,6 @@ document.addEventListener('click', function(event) {
 
 });
 
-
-// ================= MAP PICKER =================
-
-let mapPicker;
-let markerPicker;
-
-
-// OPEN MAP MODAL
-
-function openMapModal()
-{
-    $("#mapModal").modal("show");
-
-    setTimeout(initMapPicker, 500);
-}
-
-
-// INIT MAP
-function initMapPicker()
-{
-
-    if (mapPicker)
-        mapPicker.remove();
-
-    mapPicker = L.map('mapPicker')
-        .setView([11.6087,125.4319], 13);
-
-    L.tileLayer(
-        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-    ).addTo(mapPicker);
-
-
-    let lat = $("#latitude").val();
-    let lng = $("#longitude").val();
-
-    if (lat && lng)
-    {
-        markerPicker =
-            L.marker([lat,lng]).addTo(mapPicker);
-
-        mapPicker.setView([lat,lng], 15);
-    }
-
-
-    mapPicker.on("click", function(e){
-
-        let lat = e.latlng.lat;
-        let lng = e.latlng.lng;
-
-        $("#latitude").val(lat);
-        $("#longitude").val(lng);
-
-        if(markerPicker)
-            mapPicker.removeLayer(markerPicker);
-
-        markerPicker =
-            L.marker([lat,lng]).addTo(mapPicker);
-
-    });
-
-}
 
 
 // ================= ADD MODAL =================
