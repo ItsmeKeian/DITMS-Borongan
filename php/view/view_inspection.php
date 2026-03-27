@@ -154,7 +154,7 @@ border:none;
 <div class="paper">
 
 
-<div class="header-top">
+<div class="header">
 
 <div class="header-left">
 
@@ -163,7 +163,6 @@ border:none;
 
 </div>
 
-
 <div class="header-center">
 
 Republic of the Philippines<br>
@@ -171,7 +170,6 @@ Province of Eastern Samar<br>
 CITY OF BORONGAN
 
 </div>
-
 
 <div class="header-right">
 
@@ -189,8 +187,6 @@ BUSINESS PERMIT<br>
 TAX MAPPING
 
 </div>
-
-<div class="title-line"></div>
 
 
 
