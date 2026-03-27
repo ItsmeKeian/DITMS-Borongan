@@ -28,6 +28,8 @@ SELECT
     inspections.female_employees,
     inspections.additional_support,
     inspections.remarks,
+    inspections.latitude,
+    inspections.longitude,
     inspections.inspector_name,
     inspections.date_signed,
 

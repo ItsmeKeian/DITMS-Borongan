@@ -40,6 +40,9 @@ female_employees=?,
 additional_support=?,
 remarks=?,
 
+latitude=?,
+longitude=?,
+
 inspector_name=?,
 date_signed=?
 
@@ -75,6 +78,9 @@ $_POST["female_employees"],
 
 $_POST["additional_support"],
 $_POST["remarks"],
+
+$_POST["latitude"],
+$_POST["longitude"],
 
 $_POST["inspector_name"],
 $_POST["date_signed"],

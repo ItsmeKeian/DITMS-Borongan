@@ -21,6 +21,9 @@ if(!isset($_SESSION["user"])){
     <link href="assets/css/dashboard.css" rel="stylesheet">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/all.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     
   
 </head>
@@ -34,7 +37,7 @@ if(!isset($_SESSION["user"])){
         <nav class="sidebar-nav mt-3">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="dashboard.php">
+                    <a class="nav-link" href="dashboard.php">
                         <i class="fas fa-tachometer-alt"></i>
                         Dashboard
                     </a>
@@ -50,7 +53,7 @@ if(!isset($_SESSION["user"])){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="taxmapping.php">
+                    <a class="nav-link active" href="taxmapping.php">
                     <i class="fas fa-map-marked-alt"></i> Tax Mapping
                     </a>
                 </li>
@@ -77,7 +80,7 @@ if(!isset($_SESSION["user"])){
             </button>
             <h5 class="mb-0 fw-bold text-dark">
                 <i class="fas fa-home me-2"></i>
-                Dashboard Overview
+                Tax Mapping Overview
             </h5>
         </div>
         <div class="d-flex align-items-center">
@@ -104,14 +107,7 @@ if(!isset($_SESSION["user"])){
                 <h2 class="mb-1 fw-bold text-dark">Digital Inspection and Tax Mapping System</h2>
                 <p class="mb-0 text-muted">Borongan City, Eastern Samar</p>
             </div>
-            <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary">
-                    <i class="fas fa-download me-2"></i>Export Report
-                </button>
-                <button class="btn btn-primary">
-                    <i class="fas fa-plus me-2"></i>New Record
-                </button>
-            </div>
+           
         </div>
 
         <!-- Stats Cards -->
@@ -162,100 +158,72 @@ if(!isset($_SESSION["user"])){
             </div>
         </div>
 
-        <!-- Recent Records Table -->
+      
+        <!-- Map -->
         <div class="row">
-            <div class="col-12">
-                <div class="table-container">
-                   
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Business</th>
-                                        <th>Owner</th>                                                         
-                                        <th>Status</th>
-                                        <th>Date</th>      
-                                        <th>Location</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+
+            <!-- FILTERS -->
+            <div class="col-md-3">
+
+                <div class="card">
+
+                    <div class="card-header fw-bold">
+                        Filters
                     </div>
+
+                    <div class="card-body">
+
+                        <div class="mb-2">
+                            <label>Barangay</label>
+                            <select class="form-control" id="filterBarangay">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Status</label>
+                            <select class="form-control" id="filterStatus">
+                                <option value="">All</option>
+                                <option value="Inspected">Inspected</option>
+                                <option value="Pending">Pending</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label>Search</label>
+                            <input type="text" id="filterSearch" class="form-control">
+                        </div>
+
+                    </div>
+
                 </div>
+
             </div>
-        </div>
+
+
+                    <!-- MAP -->
+                    <div class="col-md-9">
+
+                        <div class="card">
+
+                            <div class="card-header fw-bold">
+                                Tax Map
+                            </div>
+
+                            <div class="card-body">
+
+                                <div id="map" style="height:500px;"></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    </div>
     </main>
 
-    <script src="assets/js/jquery-4.0.0.min.js"></script>
+     <script src="assets/js/jquery-4.0.0.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     
     <script>
@@ -277,6 +245,22 @@ if(!isset($_SESSION["user"])){
                 sidebar.style.transform = 'translateX(-100%)';
             }
         });
+
+
+            // map
+        var map = L.map('map').setView([11.6087, 125.4319], 13); // Borongan
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data'
+            }).addTo(map);
+
+
+            // test marker
+            L.marker([11.6087, 125.4319])
+                .addTo(map)
+                .bindPopup("Borongan City Hall")
+                .openPopup();
+
     </script>
 </body>
 </html>

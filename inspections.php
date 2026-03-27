@@ -21,6 +21,8 @@ if(!isset($_SESSION["user"])){
     <link href="assets/css/dashboard.css" rel="stylesheet">
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
    
     
   
@@ -542,8 +544,42 @@ if(!isset($_SESSION["user"])){
         <label>Date</label>
         <input type="date" name="date_signed" class="form-control">
 
+        <hr>
+
+        <h6 class="fw-bold">Location (Tax Mapping)</h6>
+
+        <div class="row">
+
+            <div class="col-md-5">
+                <label>Latitude</label>
+                <input type="text" name="latitude" id="latitude" class="form-control">
+            </div>
+
+            <div class="col-md-5">
+                <label>Longitude</label>
+                <input type="text" name="longitude" id="longitude" class="form-control">
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button
+                    type="button"
+                    class="btn btn-primary w-100"
+                    onclick="openMapModal()"
+                >
+                    Pick
+                </button>
+            </div>
 
         </div>
+
+
+        </div>
+
+        
+
+            <br>
+
+            
 
             <div class="modal-footer">
 
@@ -564,6 +600,47 @@ if(!isset($_SESSION["user"])){
         </div>
 
 
+        <!-- MAP MODAL -->
+                <div class="modal fade" id="mapModal" tabindex="-1">
+
+                <div class="modal-dialog modal-xl">
+
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5>Select Location</h5>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal">
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div id="mapPicker"
+                                style="height:500px;">
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button
+                                class="btn btn-secondary"
+                                data-bs-dismiss="modal">
+                                Done
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                </div>
+
+
 <style>
 .modal-body {
     max-height: 70vh;
@@ -576,25 +653,116 @@ if(!isset($_SESSION["user"])){
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="js/inspections.js"></script>
     
-    <script>
-        // Sidebar toggle for mobile
-        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
-            document.querySelector('.sidebar').style.transform = 
-                document.querySelector('.sidebar').style.transform === 'translateX(-100%)' ? 
-                'translateX(0)' : 'translateX(-100%)';
-        });
+<script>
 
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', function(event) {
-            const sidebar = document.querySelector('.sidebar');
-            const toggle = document.querySelector('.sidebar-toggle');
-            
-            if (window.innerWidth <= 992 && 
-                !sidebar.contains(event.target) && 
-                !toggle.contains(event.target)) {
-                sidebar.style.transform = 'translateX(-100%)';
-            }
-        });
-    </script>
+// ================= SIDEBAR =================
+
+document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+    document.querySelector('.sidebar').style.transform =
+        document.querySelector('.sidebar').style.transform === 'translateX(-100%)'
+        ? 'translateX(0)'
+        : 'translateX(-100%)';
+});
+
+document.addEventListener('click', function(event) {
+
+    const sidebar = document.querySelector('.sidebar');
+    const toggle = document.querySelector('.sidebar-toggle');
+
+    if (
+        window.innerWidth <= 992 &&
+        !sidebar.contains(event.target) &&
+        !toggle.contains(event.target)
+    ) {
+        sidebar.style.transform = 'translateX(-100%)';
+    }
+
+});
+
+
+// ================= MAP PICKER =================
+
+let mapPicker;
+let markerPicker;
+
+
+// OPEN MAP MODAL
+
+function openMapModal()
+{
+    $("#mapModal").modal("show");
+
+    setTimeout(initMapPicker, 500);
+}
+
+
+// INIT MAP
+function initMapPicker()
+{
+
+    if (mapPicker)
+        mapPicker.remove();
+
+    mapPicker = L.map('mapPicker')
+        .setView([11.6087,125.4319], 13);
+
+    L.tileLayer(
+        'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    ).addTo(mapPicker);
+
+
+    let lat = $("#latitude").val();
+    let lng = $("#longitude").val();
+
+    if (lat && lng)
+    {
+        markerPicker =
+            L.marker([lat,lng]).addTo(mapPicker);
+
+        mapPicker.setView([lat,lng], 15);
+    }
+
+
+    mapPicker.on("click", function(e){
+
+        let lat = e.latlng.lat;
+        let lng = e.latlng.lng;
+
+        $("#latitude").val(lat);
+        $("#longitude").val(lng);
+
+        if(markerPicker)
+            mapPicker.removeLayer(markerPicker);
+
+        markerPicker =
+            L.marker([lat,lng]).addTo(mapPicker);
+
+    });
+
+}
+
+
+// ================= ADD MODAL =================
+
+function openAddModal()
+{
+
+    $("#inspectionForm")[0].reset();
+
+    $("#inspection_id").val("");
+
+    $("#inspectionForm").attr(
+        "action",
+        "php/create/create_inspection.php"
+    );
+
+    $("#addInspectionModal").modal("show");
+
+}
+
+</script>
+
+
+
 </body>
 </html>

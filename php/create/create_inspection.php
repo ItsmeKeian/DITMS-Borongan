@@ -35,6 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $male = $_POST["male_employees"] ?? 0;
     $female = $_POST["female_employees"] ?? 0;
 
+    $latitude = $_POST["latitude"] ?? null;
+    $longitude = $_POST["longitude"] ?? null;
+
     $inspector = $_POST["inspector_name"] ?? "";
     $date_signed = $_POST["date_signed"] ?? null;
 
@@ -67,12 +70,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             male_employees,
             female_employees,
 
+            latitude,
+            longitude,
+
             inspector_name,
             date_signed
 
         )
 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 
     ");
 
@@ -101,6 +107,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $floor_area,
         $male,
         $female,
+
+        $latitude,
+        $longitude,
 
         $inspector,
         $date_signed

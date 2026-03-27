@@ -215,6 +215,11 @@ function editInspection(id){
         $("textarea[name=action_remarks]")
         .val(r.action_remarks);
 
+        // LOCATION
+
+        $("#latitude").val(r.latitude);
+        $("#longitude").val(r.longitude);
+
         // INSPECTOR
 
         $("input[name=inspector_name]").val(r.inspector_name);
