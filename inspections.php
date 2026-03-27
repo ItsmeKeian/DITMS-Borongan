@@ -184,6 +184,8 @@ if(!isset($_SESSION["user"])){
             <form method="POST" id="inspectionForm" action="php/create/create_inspection.php">
             <input type="hidden" name="inspection_id" id="inspection_id">
 
+            <input type="hidden" name="business_id" id="inspection_business_id">
+
             <div class="modal-body">
 
         <!-- ================= GENERAL ================= -->
@@ -204,7 +206,7 @@ if(!isset($_SESSION["user"])){
 
                             <div class="col-md-4">
                                 <label>Barangay:</label>
-                                <input type="text" name="barangay" class="form-control">
+                                <input type="text" name="barangay" class="form-control" id="barangay">
                             </div>
 
                         </div>
@@ -220,7 +222,9 @@ if(!isset($_SESSION["user"])){
 
                             <div class="col-md-6">
                                 <label>Business Name:</label>
-                                <input type="text" name="business_name" class="form-control">
+                                <select id="selectBusiness" class="form-control">
+                                    <option value="">Select Business</option>
+                                </select>
                             </div>
 
                             <div class="col-md-6">
@@ -230,7 +234,7 @@ if(!isset($_SESSION["user"])){
 
                             <div class="col-md-6">
                                 <label>Owner's Name:</label>
-                                <input type="text" name="owner_name" class="form-control">
+                                <input type="text" name="owner_name" class="form-control" id="owner_name">
                             </div>
 
                             <div class="col-md-6">

@@ -14,7 +14,9 @@ function loadBusinesses(){
 
             rows.forEach(r => {
 
-                let status = '<span class="badge bg-warning">Pending</span>';
+                let status = r.inspection_count > 0
+                    ? '<span class="badge bg-success">Inspected</span>'
+                    : '<span class="badge bg-warning">Pending</span>';
 
                 html += `
                 <tr>

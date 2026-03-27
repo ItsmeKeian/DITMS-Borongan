@@ -291,6 +291,49 @@ function openAddModal(){
 }
 
 
+function loadBusinessOptions(){
+
+    $.get("php/get/get_businesses.php", function(data){
+
+        let rows = JSON.parse(data);
+        let html = '<option value="">Select Business</option>';
+
+        rows.forEach(r => {
+
+            html += `
+            <option value="${r.id}"
+                data-name="${r.business_name}"
+                data-owner="${r.owner_name}"
+                data-barangay="${r.barangay}">
+                ${r.business_name}
+            </option>
+            `;
+
+        });
+
+        $("#selectBusiness").html(html);
+
+    });
+
+}
+
+loadBusinessOptions();
+
+
+
+$("#selectBusiness").on("change", function(){
+
+    let selected = $(this).find(":selected");
+
+    $("#inspection_business_id").val($(this).val());
+
+    $("input[name=business_name]").val(selected.data("name"));
+    $("#owner_name").val(selected.data("owner"));
+    $("#barangay").val(selected.data("barangay"));
+
+});
+
+
 // ================= EXPORT=================
 
 function exportExcel(){
