@@ -14,24 +14,25 @@ SELECT COUNT(*) FROM businesses
 $pending = $total - $inspected;
 
 $violations = $conn->query("
-SELECT COUNT(*) 
-FROM inspections 
-WHERE inspection_status = 'violation'
+SELECT COUNT(DISTINCT i.business_id)
+FROM findings f
+JOIN inspections i ON f.inspection_id = i.id
+WHERE f.notice_violation = 1
 ")->fetchColumn();
 
 /* MONTHLY */
+$months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+$counts = array_fill(0, 12, 0);
+
 $monthlyData = $conn->query("
-SELECT DATE_FORMAT(created_at, '%b') as month, COUNT(*) as total
+SELECT MONTH(date_of_inspection) as m, COUNT(*) as total
 FROM inspections
-GROUP BY month
+GROUP BY m
 ")->fetchAll(PDO::FETCH_ASSOC);
 
-$months = [];
-$counts = [];
-
-foreach($monthlyData as $m){
-    $months[] = $m['month'];
-    $counts[] = $m['total'];
+foreach($monthlyData as $row){
+    $index = $row['m'] - 1;
+    $counts[$index] = $row['total'];
 }
 
 /* BARANGAY */

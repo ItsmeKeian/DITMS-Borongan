@@ -59,7 +59,7 @@ if(!isset($_SESSION["user"])){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="reports.php">
                     <i class="fas fa-chart-bar"></i> Reports
                     </a>
                 </li>

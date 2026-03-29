@@ -87,7 +87,7 @@ if(!isset($_SESSION["user"])){
         <div class="d-flex align-items-center">
             <div class="dropdown">
                 <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                    <img src="https://via.placeholder.com/40x40/2C3E50/FFFFFF?text=JD" class="rounded-circle" width="40" height="40" alt="User">
+                    <img src="assets/img/borlogo.png" class="rounded-circle" width="40" height="40" alt="User">
                     <span class="ms-2 d-none d-md-inline fw-semibold">Administrator</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -118,11 +118,11 @@ if(!isset($_SESSION["user"])){
                         style="width:250px;"
                     >
 
-                <button class="btn btn-outline-primary">
+                <button class="btn btn-outline-warning">
                     <i class="fas fa-download me-2"></i>Export
                 </button>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBusinessModal">
-                    <i class="fas fa-plus me-2"></i>New Business
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addBusinessModal">
+                    <i class="fas fa-plus me-2""></i>New Business
                 </button>
             </div>
         </div>

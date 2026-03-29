@@ -16,12 +16,15 @@ if(!isset($_SESSION["user"])){
     <title>Digital Inspection and Tax Mapping System</title>
     <link href="assets/img/borlogo.png" rel="icon">
     
-   
+    <!-- Bootstrap 5 CSS -->
+ 
 
     <link href="assets/css/dashboard.css" rel="stylesheet">
+    
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/all.min.css">
-  
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     
   
 </head>
@@ -35,7 +38,7 @@ if(!isset($_SESSION["user"])){
         <nav class="sidebar-nav mt-3">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="dashboard.php">
+                    <a class="nav-link" href="dashboard.php">
                         <i class="fas fa-tachometer-alt"></i>
                         Dashboard
                     </a>
@@ -56,7 +59,7 @@ if(!isset($_SESSION["user"])){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="reports.php">
+                    <a class="nav-link active" href="reports.php">
                     <i class="fas fa-chart-bar"></i> Reports
                     </a>
                 </li>
@@ -73,38 +76,18 @@ if(!isset($_SESSION["user"])){
     <!-- Top Header -->
     <header class="top-header">
         <div class="d-flex align-items-center">
-            
             <button class="sidebar-toggle btn btn-link text-decoration-none d-lg-none me-3">
                 <i class="fas fa-bars fs-4"></i>
             </button>
             <h5 class="mb-0 fw-bold text-dark">
                 <i class="fas fa-home me-2"></i>
-                Dashboard Overview
+                Reports Overview
             </h5>
         </div>
         <div class="d-flex align-items-center">
-
-            <!-- 🔔 Notification -->
-            <div class="dropdown me-3">
-                <a href="#" class="position-relative" data-bs-toggle="dropdown">
-                    <i class="fas fa-bell fs-5" style="color: #D4AF37;"></i>
-                    <span id="notifBadge"
-                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                        style="font-size:10px;">
-                        0
-                    </span>
-                </a>
-
-                <ul class="dropdown-menu dropdown-menu-end p-3" style="width:300px;">
-                    <h6 class="mb-2">Notifications</h6>
-                    <ul id="notifList" class="list-unstyled mb-0"></ul>
-                </ul>
-            </div>
-
-            <!-- 👤 Administrator -->
             <div class="dropdown">
                 <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                    <img src="assets/img/borlogo.png" class="rounded-circle" width="40" height="40">
+                    <img src="assets/img/borlogo.png" class="rounded-circle" width="40" height="40" alt="User">
                     <span class="ms-2 d-none d-md-inline fw-semibold">Administrator</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -114,7 +97,6 @@ if(!isset($_SESSION["user"])){
                     <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                 </ul>
             </div>
-
         </div>
     </header>
 
@@ -126,111 +108,144 @@ if(!isset($_SESSION["user"])){
                 <h2 class="mb-1 fw-bold text-dark">Digital Inspection and Tax Mapping System</h2>
                 <p class="mb-0 text-muted">Borongan City, Eastern Samar</p>
             </div>
-          
-        </div>
+            <div class="d-flex gap-2">
 
-        <!-- Stats Cards -->
-        <div class="row g-4 mb-5">
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number" id="totalBusinesses">0</div>
-                            <div class="stat-label">Total Businesses</div>
-                            <i class="fas fa-users stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number" id="inspectedCount">0</div>
-                            <div class="stat-label">Inspected</div>
-                            <i class="fas fa-boxes stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                        <div class="stat-number" id="pendingCount">0</div>
-                            <div class="stat-label">Pending Inspection</div>
-                            <i class="fas fa-coins stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                        <div class="stat-number" id="violationsCount">0</div>
-                            <div class="stat-label">Violations</div>
-                            <i class="fas fa-chart-line stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
+                <input
+                        type="text"
+                        id="searchReports"
+                        class="form-control"
+                        placeholder="Search business / owner"
+                        style="width:250px;"
+                    >
+
+                <button class="btn btn-outline-warning">
+                    <i class="fas fa-download me-2"></i>Export
+                </button>
+                
             </div>
         </div>
 
+        
 
-        <div class="row mt-4">
-
-         <!-- LINE CHART -->
-    <div class="col-lg-8 col-md-7">
-        <div class="card p-3" style="border-color: #D4AF37;">
-            <h5>Monthly Inspections</h5>
-            <div style="height:300px;">
-                <canvas id="lineChart"></canvas>
-            </div>  
-        </div>
-    </div>
-
-    <!-- PIE CHART -->
-    <div class="col-lg-4 col-md-5">
-        <div class="card p-3" style="border-color: #D4AF37;">
-            <h5>Inspection Status</h5>
-            <div style="height:300px; display:flex; justify-content:center; align-items:center;">
-                <canvas id="statusChart" style="max-width:350px;"></canvas>
-            </div>
-        </div>
-    </div>
-
-   
-
-</div>
-
-<div class="row mt-4">
-
-    <!-- BAR CHART -->
-    <div class="col-12">
-        <div class="card p-3" style="border-color: #D4AF37;">
-            <h5>Businesses per Barangay</h5>
-            <div style="height:300px;">
-            <canvas id="barChart"></canvas>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-
-
-      
-
+    
     </main>
 
+
+
+    <!-- ADD BUSINESS MODAL -->
+<div class="modal fade" id="addBusinessModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Add Business</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form method="POST" action="php/create/create_business.php">
+
+        <div class="modal-body">
+
+          <div class="mb-2">
+            <label>Business Name</label>
+            <input type="text" name="business_name" class="form-control" required>
+          </div>
+
+          <div class="mb-2">
+            <label>Owner Name</label>
+            <input type="text" name="owner_name" class="form-control">
+          </div>
+
+          <div class="mb-2">
+            <label>Barangay</label>
+            <input type="text" name="barangay" class="form-control">
+          </div>
+
+          <div class="mb-2">
+            <label>Contact Number</label>
+            <input type="text" name="contact_number" class="form-control">
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label>Latitude</label>
+              <input type="text" name="latitude" id="lat_business" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label>Longitude</label>
+              <input type="text" name="longitude" id="lng_business" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-12 mt-2">
+            <button 
+                type="button"
+                class="btn btn-primary w-100"
+                onclick="openMapModal('business')"
+            >
+                Pick Location
+            </button>
+        </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Business</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- MAP MODAL -->
+  <div class="modal fade" id="mapModal" tabindex="-1">
+
+    <div class="modal-dialog modal-xl">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5>Select Location</h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <div id="mapPicker"
+                    style="height:500px;">
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+                    Done
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
     <!-- Bootstrap 5 JS -->
-     
     <script src="assets/js/jquery-4.0.0.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/dashboard.js"></script>
+    <script src="js/business.js"></script>
+    <script src="js/mapPicker.js"></script>
     
     <script>
         // Sidebar toggle for mobile
@@ -251,6 +266,9 @@ if(!isset($_SESSION["user"])){
                 sidebar.style.transform = 'translateX(-100%)';
             }
         });
+
+
+
     </script>
 </body>
 </html>

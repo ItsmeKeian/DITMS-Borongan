@@ -43,7 +43,11 @@ function renderPie(d){
             labels: ['Inspected', 'Pending', 'Violations'],
             datasets: [{
                 data: [d.inspected, d.pending, d.violations],
-                backgroundColor: ["#4CAF50", "#FFC107", "#F44336"]
+                backgroundColor: [
+                    "#C9A227",
+                    "#D4AF37",
+                    "#E5C76B"
+                ],
             }]
         },
         options: {
@@ -68,7 +72,7 @@ function renderLine(d){
             datasets: [{
                 label: "Inspections",
                 data: d.monthly,
-                borderColor: "#3498db",
+                borderColor: "#D4AF37",
                 fill: false,
                 tension: 0.3
             }]
@@ -90,7 +94,7 @@ function renderBar(d){
             datasets: [{
                 label: "Businesses",
                 data: d.counts,
-                backgroundColor: "#3498db"
+                backgroundColor: "#D4AF37"
             }]
         },
         options: {
@@ -98,16 +102,4 @@ function renderBar(d){
         }
     });
 
-}
-
-/* ================= INSIGHTS ================= */
-function renderInsights(d){
-
-    let html = `
-        <li>${d.pending} businesses pending inspection</li>
-        <li>Top barangay: ${d.top_barangay}</li>
-        <li>${d.violations} violations recorded</li>
-    `;
-
-    $("#insightsList").html(html);
 }

@@ -58,7 +58,7 @@ if(!isset($_SESSION["user"])){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="reports.php">
                     <i class="fas fa-chart-bar"></i> Reports
                     </a>
                 </li>
@@ -117,14 +117,14 @@ if(!isset($_SESSION["user"])){
                     style="width:250px;"
                 >
                 
-                <button class="btn btn-outline-primary"
+                <button class="btn btn-outline-warning"
                    onclick="exportExcel()">
 
                    <i class="fas fa-download me-2"></i>
                    Export
 
                </button>
-               <button class="btn btn-primary"
+               <button class="btn btn-warning"
                onclick="openAddModal()">
 
                <i class="fas fa-plus me-2"></i>
