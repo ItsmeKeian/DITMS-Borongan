@@ -15,9 +15,9 @@ $(document).ready(function(){
 });
 
 
-// =========================
-// LOAD TABLE
-// =========================
+
+// load table
+
 
 function loadInspections(search = "") {
 
@@ -124,26 +124,26 @@ function editInspection(id){
 
             let r = JSON.parse(data);
 
-            // ================= BASIC =================
+         
             $("#inspection_id").val(r.id);
 
-            // ================= GENERAL =================
+   
             $("input[name=date_of_inspection]").val(r.date_of_inspection);
             $("input[name=time_of_inspection]").val(r.time_of_inspection);
             $("#barangay").val(r.barangay);
 
-            // ================= BUSINESS (FIXED) =================
+  
             $("#inspection_business_id").val(r.business_id);
             $("#business_name").val(r.business_name);
 
-            // SELECT DROPDOWN
+      
             $("#selectBusiness").val(r.business_id).trigger("change");
 
             $("input[name=trade_name]").val(r.trade_name);
             $("#owner_name").val(r.owner_name);
             $("input[name=contact_number]").val(r.contact_number);
 
-            // ================= REGISTRATION =================
+          
             $("select[name=mayor_permit]").val(r.mayor_permit);
             $("select[name=barangay_clearance]").val(r.barangay_clearance);
             $("select[name=dti_sec_cda]").val(r.dti_sec_cda);
@@ -152,7 +152,7 @@ function editInspection(id){
             $("input[name=permit_number]").val(r.permit_number);
             $("input[name=year_last_registered]").val(r.year_last_registered);
 
-            // ================= DETAILS =================
+        
             $("textarea[name=declared_nature]").val(r.declared_nature);
             $("textarea[name=actual_nature]").val(r.actual_nature);
 
@@ -174,7 +174,7 @@ function editInspection(id){
             $("select[name=additional_support]").val(r.additional_support);
             $("textarea[name=remarks]").val(r.remarks);
 
-            // ================= FINDINGS =================
+            
             $("input[name=no_mayor_permit]").prop("checked", r.no_mayor_permit == 1);
             $("input[name=expired_permit]").prop("checked", r.expired_permit == 1);
             $("input[name=change_nature]").prop("checked", r.change_nature == 1);
@@ -183,7 +183,7 @@ function editInspection(id){
 
             $("input[name=others]").val(r.others);
 
-            // ================= ACTION =================
+          
             $("input[name=notice_register]").prop("checked", r.notice_register == 1);
             $("input[name=notice_violation]").prop("checked", r.notice_violation == 1);
             $("input[name=reassessment]").prop("checked", r.reassessment == 1);
@@ -193,26 +193,26 @@ function editInspection(id){
 
             $("textarea[name=action_remarks]").val(r.action_remarks);
 
-            // ================= COMPLIANCE =================
+         
             $("select[name=sanitary_permit]").val(r.sanitary_permit);
             $("select[name=fire_cert]").val(r.fire_cert);
             $("select[name=permit_displayed]").val(r.permit_displayed);
 
-            // ================= LOCATION =================
+       
             $("#latitude").val(r.latitude);
             $("#longitude").val(r.longitude);
 
-            // ================= INSPECTOR =================
+         
             $("input[name=inspector_name]").val(r.inspector_name);
             $("input[name=date_signed]").val(r.date_signed);
 
-            // ================= FORM MODE =================
+          
             $("#inspectionForm").attr(
                 "action",
                 "php/update/update_inspection.php"
             );
 
-            // ================= OPEN MODAL =================
+           
             $("#addInspectionModal").modal("show");
 
         }
