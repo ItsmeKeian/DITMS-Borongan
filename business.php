@@ -81,14 +81,14 @@ if(!isset($_SESSION["user"])){
             </button>
             <h5 class="mb-0 fw-bold text-dark">
                 <i class="fas fa-home me-2"></i>
-                Dashboard Overview
+                Business Overview
             </h5>
         </div>
         <div class="d-flex align-items-center">
             <div class="dropdown">
                 <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                     <img src="https://via.placeholder.com/40x40/2C3E50/FFFFFF?text=JD" class="rounded-circle" width="40" height="40" alt="User">
-                    <span class="ms-2 d-none d-md-inline fw-semibold">John Dela Cruz</span>
+                    <span class="ms-2 d-none d-md-inline fw-semibold">Administrator</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
@@ -110,7 +110,7 @@ if(!isset($_SESSION["user"])){
             </div>
             <div class="d-flex gap-2">
                 <button class="btn btn-outline-primary">
-                    <i class="fas fa-download me-2"></i>Export Report
+                    <i class="fas fa-download me-2"></i>Export
                 </button>
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBusinessModal">
                     <i class="fas fa-plus me-2"></i>New Business
@@ -118,53 +118,7 @@ if(!isset($_SESSION["user"])){
             </div>
         </div>
 
-        <!-- Stats Cards -->
-        <div class="row g-4 mb-5">
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number">1,247</div>
-                            <div class="stat-label">Total Businesses</div>
-                            <i class="fas fa-users stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number">892</div>
-                            <div class="stat-label">Inspected</div>
-                            <i class="fas fa-boxes stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number">56</div>
-                            <div class="stat-label">Pending Inspection</div>
-                            <i class="fas fa-coins stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="card stat-card h-100">
-                    <div class="card-body position-relative p-0">
-                        <div class="stat-card-header">
-                            <div class="stat-number">35</div>
-                            <div class="stat-label">Violations</div>
-                            <i class="fas fa-chart-line stat-icon"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
         <!-- Recent Records Table -->
         <div class="row">
