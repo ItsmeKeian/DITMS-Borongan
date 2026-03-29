@@ -105,14 +105,7 @@ if(!isset($_SESSION["user"])){
                 <h2 class="mb-1 fw-bold text-dark">Digital Inspection and Tax Mapping System</h2>
                 <p class="mb-0 text-muted">Borongan City, Eastern Samar</p>
             </div>
-            <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary">
-                    <i class="fas fa-download me-2"></i>Export Report
-                </button>
-                <button class="btn btn-primary">
-                    <i class="fas fa-plus me-2"></i>New Record
-                </button>
-            </div>
+          
         </div>
 
         <!-- Stats Cards -->
@@ -163,102 +156,64 @@ if(!isset($_SESSION["user"])){
             </div>
         </div>
 
-        <!-- Recent Records Table -->
-        <div class="row">
-            <div class="col-12">
-                <div class="table-container">
-                   
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Business</th>
-                                        <th>Owner</th>                                                         
-                                        <th>Status</th>
-                                        <th>Date</th>      
-                                        <th>Location</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Borongan Supermarket</td>
-                                        <td>Keian Gacillos</td>
-                                        <td><span class="badge bg-success">Completed</span></td>
-                                        <td>Jan 15, 2024</td>
-                                        <td>Songco</td>
-                                       
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+
+        <div class="row mt-4">
+
+         <!-- LINE CHART -->
+    <div class="col-lg-8 col-md-7">
+        <div class="card p-3">
+            <h5>Monthly Inspections</h5>
+            <div style="height:300px;">
+                <canvas id="lineChart"></canvas>
+            </div>  
+        </div>
+    </div>
+
+    <!-- PIE CHART -->
+    <div class="col-lg-4 col-md-5">
+        <div class="card p-3">
+            <h5>Inspection Status</h5>
+            <div style="height:300px; display:flex; justify-content:center; align-items:center;">
+                <canvas id="statusChart" style="max-width:350px;"></canvas>
             </div>
         </div>
+    </div>
+
+   
+
+</div>
+
+<div class="row mt-4">
+
+    <!-- BAR CHART -->
+    <div class="col-12">
+        <div class="card p-3">
+            <h5>Businesses per Barangay</h5>
+            <div style="height:300px;">
+            <canvas id="barChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- INSIGHTS -->
+<div class="card mt-4 p-3">
+    <h5>⚠️ Insights</h5>
+    <ul id="insightsList"></ul>
+</div>
+
+      
+
     </main>
 
     <!-- Bootstrap 5 JS -->
+     
     <script src="assets/js/jquery-4.0.0.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/dashboard.js"></script>
     
     <script>
         // Sidebar toggle for mobile
