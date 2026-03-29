@@ -1,12 +1,20 @@
-
 $(document).ready(function(){
+
     loadBusinesses();
+
+    // 🔍 LIVE SEARCH
+    $("#searchBusiness").on("keyup", function(){
+        let search = $(this).val();
+        loadBusinesses(search);
+    });
+
 });
 
-function loadBusinesses(){
+function loadBusinesses(search = ""){
 
     $.get(
         "php/get/get_businesses.php",
+        { search: search }, // ✅ send to backend
         function(data){
 
             let rows = JSON.parse(data);
