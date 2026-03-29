@@ -114,7 +114,7 @@ if(!isset($_SESSION["user"])){
                 <div class="card stat-card h-100">
                     <div class="card-body position-relative p-0">
                         <div class="stat-card-header">
-                            <div class="stat-number">1,247</div>
+                            <div class="stat-number" id="totalBusinesses">0</div>
                             <div class="stat-label">Total Businesses</div>
                             <i class="fas fa-users stat-icon"></i>
                         </div>
@@ -125,7 +125,7 @@ if(!isset($_SESSION["user"])){
                 <div class="card stat-card h-100">
                     <div class="card-body position-relative p-0">
                         <div class="stat-card-header">
-                            <div class="stat-number">892</div>
+                            <div class="stat-number" id="inspectedCount">0</div>
                             <div class="stat-label">Inspected</div>
                             <i class="fas fa-boxes stat-icon"></i>
                         </div>
@@ -136,7 +136,7 @@ if(!isset($_SESSION["user"])){
                 <div class="card stat-card h-100">
                     <div class="card-body position-relative p-0">
                         <div class="stat-card-header">
-                            <div class="stat-number">56</div>
+                        <div class="stat-number" id="pendingCount">0</div>
                             <div class="stat-label">Pending Inspection</div>
                             <i class="fas fa-coins stat-icon"></i>
                         </div>
@@ -147,7 +147,7 @@ if(!isset($_SESSION["user"])){
                 <div class="card stat-card h-100">
                     <div class="card-body position-relative p-0">
                         <div class="stat-card-header">
-                            <div class="stat-number">35</div>
+                        <div class="stat-number" id="violationsCount">0</div>
                             <div class="stat-label">Violations</div>
                             <i class="fas fa-chart-line stat-icon"></i>
                         </div>

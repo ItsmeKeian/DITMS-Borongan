@@ -59,6 +59,7 @@ LIMIT 1
 ")->fetch(PDO::FETCH_ASSOC);
 
 echo json_encode([
+    "total" => $total,
     "inspected" => $inspected,
     "pending" => $pending,
     "violations" => $violations,

@@ -5,11 +5,25 @@ $(document).ready(function(){
     loadDashboard();
 });
 
+
+
+function formatNumber(num){
+    return num.toLocaleString();
+}
+
+
+
 function loadDashboard(){
 
     $.get("php/get/get_dashboard.php", function(data){
 
         let d = JSON.parse(data);
+
+        // CARDS
+        $("#totalBusinesses").text(d.total);
+        $("#inspectedCount").text(d.inspected);
+        $("#pendingCount").text(d.pending);
+        $("#violationsCount").text(d.violations);
 
         renderPie(d);
         renderLine(d);
