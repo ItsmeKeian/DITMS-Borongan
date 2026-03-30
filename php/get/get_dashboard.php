@@ -1,26 +1,55 @@
 <?php
 require "../dbconnect.php";
 
-/* TOTALS */
-$inspected = $conn->query("
-SELECT COUNT(DISTINCT business_id)
-FROM inspections
-")->fetchColumn();
+/* ================= GET LATEST INSPECTION PER BUSINESS ================= */
+$query = "
+SELECT 
+    b.id,
+    i.id as inspection_id,
+    f.notice_violation
+FROM businesses b
 
-$total = $conn->query("
-SELECT COUNT(*) FROM businesses
-")->fetchColumn();
+LEFT JOIN inspections i 
+ON i.id = (
+    SELECT id FROM inspections 
+    WHERE business_id = b.id
+    ORDER BY date_of_inspection DESC
+    LIMIT 1
+)
 
-$pending = $total - $inspected;
+LEFT JOIN (
+    SELECT 
+        inspection_id,
+        MAX(notice_violation) as notice_violation
+    FROM findings
+    GROUP BY inspection_id
+) f ON i.id = f.inspection_id
+";
 
-$violations = $conn->query("
-SELECT COUNT(DISTINCT i.business_id)
-FROM findings f
-JOIN inspections i ON f.inspection_id = i.id
-WHERE f.notice_violation = 1
-")->fetchColumn();
+$data = $conn->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
-/* MONTHLY */
+/* ================= COUNTS ================= */
+
+$total = count($data);
+$inspected = 0;
+$pending = 0;
+$violations = 0;
+
+foreach($data as $r){
+
+    if(!$r['inspection_id']){
+        $pending++;
+    } else {
+        if($r['notice_violation'] == 1){
+            $violations++;
+        } else {
+            $inspected++;
+        }
+    }
+}
+
+/* ================= MONTHLY (REAL INSPECTIONS COUNT) ================= */
+
 $months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 $counts = array_fill(0, 12, 0);
 
@@ -31,11 +60,11 @@ GROUP BY m
 ")->fetchAll(PDO::FETCH_ASSOC);
 
 foreach($monthlyData as $row){
-    $index = $row['m'] - 1;
-    $counts[$index] = $row['total'];
+    $counts[$row['m'] - 1] = $row['total'];
 }
 
-/* BARANGAY */
+/* ================= BARANGAY ================= */
+
 $barangayData = $conn->query("
 SELECT barangay, COUNT(*) as total
 FROM businesses
@@ -50,7 +79,8 @@ foreach($barangayData as $b){
     $bCounts[] = $b['total'];
 }
 
-/* TOP BARANGAY */
+/* ================= TOP BARANGAY ================= */
+
 $top = $conn->query("
 SELECT barangay, COUNT(*) as total
 FROM businesses
@@ -58,6 +88,8 @@ GROUP BY barangay
 ORDER BY total DESC
 LIMIT 1
 ")->fetch(PDO::FETCH_ASSOC);
+
+/* ================= RETURN ================= */
 
 echo json_encode([
     "total" => $total,

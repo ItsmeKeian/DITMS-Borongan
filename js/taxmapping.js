@@ -1,4 +1,4 @@
-// ================= MAP =================
+//  MAP 
 
 let map;
 let markerLayer;
@@ -12,7 +12,6 @@ $(document).ready(function () {
 });
 
 
-// ================= INIT MAP =================
 
 function initMap() {
 
@@ -27,7 +26,7 @@ function initMap() {
 }
 
 
-// ================= FILTER EVENTS =================
+// FILTER EVENTS
 
 function bindFilters() {
 
@@ -50,7 +49,7 @@ function bindFilters() {
 }
 
 
-// ================= LOAD MARKERS =================
+// LOAD MARKERS 
 
 function loadMarkers() {
 
@@ -99,7 +98,7 @@ function loadMarkers() {
                 else if (r.operation_status === "Transferred")
                     className = "custom-label label-orange";
 
-                // ================= ICON =================
+                // ICON
 
                 let icon = L.divIcon({
                     className: "",
@@ -110,7 +109,7 @@ function loadMarkers() {
                 let marker = L.marker([lat, lng], { icon: icon })
                     .addTo(markerLayer);
 
-                // ================= TOOLTIP =================
+                // TOOLTIP
 
                 marker.bindTooltip(
                     r.business_name,
@@ -122,7 +121,7 @@ function loadMarkers() {
                     }
                 );
 
-                // ================= POPUP =================
+                // POPUP 
 
                 marker.bindPopup(`
                     <b>${r.business_name}</b><br>

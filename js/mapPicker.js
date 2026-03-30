@@ -1,4 +1,4 @@
-// ================= MAP PICKER =================
+// MAP PICKER 
 
 let mapPicker;
 let markerPicker;

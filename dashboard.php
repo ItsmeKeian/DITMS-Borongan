@@ -84,22 +84,7 @@ if(!isset($_SESSION["user"])){
         </div>
         <div class="d-flex align-items-center">
 
-            <!-- 🔔 Notification -->
-            <div class="dropdown me-3">
-                <a href="#" class="position-relative" data-bs-toggle="dropdown">
-                    <i class="fas fa-bell fs-5" style="color: #D4AF37;"></i>
-                    <span id="notifBadge"
-                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                        style="font-size:10px;">
-                        0
-                    </span>
-                </a>
-
-                <ul class="dropdown-menu dropdown-menu-end p-3" style="width:300px;">
-                    <h6 class="mb-2">Notifications</h6>
-                    <ul id="notifList" class="list-unstyled mb-0"></ul>
-                </ul>
-            </div>
+          
 
             <!-- 👤 Administrator -->
             <div class="dropdown">
@@ -182,7 +167,7 @@ if(!isset($_SESSION["user"])){
 
          <!-- LINE CHART -->
     <div class="col-lg-8 col-md-7">
-        <div class="card p-3" style="border-color: #D4AF37;">
+        <div class="card p-3">
             <h5>Monthly Inspections</h5>
             <div style="height:300px;">
                 <canvas id="lineChart"></canvas>
@@ -192,7 +177,7 @@ if(!isset($_SESSION["user"])){
 
     <!-- PIE CHART -->
     <div class="col-lg-4 col-md-5">
-        <div class="card p-3" style="border-color: #D4AF37;">
+        <div class="card p-3">
             <h5>Inspection Status</h5>
             <div style="height:300px; display:flex; justify-content:center; align-items:center;">
                 <canvas id="statusChart" style="max-width:350px;"></canvas>
@@ -208,7 +193,7 @@ if(!isset($_SESSION["user"])){
 
     <!-- BAR CHART -->
     <div class="col-12">
-        <div class="card p-3" style="border-color: #D4AF37;">
+        <div class="card p-3" >
             <h5>Businesses per Barangay</h5>
             <div style="height:300px;">
             <canvas id="barChart"></canvas>
