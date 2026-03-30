@@ -330,6 +330,52 @@ if(!isset($_SESSION["user"])){
 
     </div>
 
+
+
+    <!-- EDIT BUSINESS MODAL -->
+<div class="modal fade" id="editModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5>Edit Business</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <input type="hidden" id="edit_id">
+
+        <div class="mb-2">
+          <label>Business Name</label>
+          <input type="text" id="edit_business_name" class="form-control">
+        </div>
+
+        <div class="mb-2">
+          <label>Owner Name</label>
+          <input type="text" id="edit_owner_name" class="form-control">
+        </div>
+
+        <div class="mb-2">
+          <label>Barangay</label>
+          <input type="text" id="edit_barangay" class="form-control">
+        </div>
+
+        <div class="mb-2">
+          <label>Contact</label>
+          <input type="text" id="edit_contact" class="form-control">
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-primary" onclick="updateBusiness()">Update</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
     <!-- Bootstrap 5 JS -->
     <script src="assets/js/jquery-4.0.0.min.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>

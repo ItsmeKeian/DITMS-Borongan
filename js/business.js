@@ -37,6 +37,14 @@ function loadBusinesses(search = ""){
                         <button class="btn btn-sm btn-outline-primary">
                             <i class="fas fa-eye"></i>
                         </button>
+
+                        <button class="btn btn-sm btn-outline-warning me-1" onclick="editBusiness(${r.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteBusiness(${r.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
                     </td>
                 </tr>
                 `;
@@ -57,4 +65,74 @@ function formatDate(dateStr){
         month: "short",
         day: "2-digit"
     });
+}
+
+
+//delete
+function deleteBusiness(id){
+
+    if(confirm("Are you sure you want to delete this business?")){
+
+        $.post(
+            "php/delete/delete_business.php",
+            { id: id },
+            function(response){
+
+                alert(response);
+                loadBusinesses(); // reload table
+
+            }
+        );
+
+    }
+
+}
+
+//edit
+function editBusiness(id){
+
+    $.get(
+        "php/get/get_single_business.php",
+        { id: id },
+        function(data){
+
+            let r = JSON.parse(data);
+
+            // fill modal inputs
+            $("#edit_id").val(r.id);
+            $("#edit_business_name").val(r.business_name);
+            $("#edit_owner_name").val(r.owner_name);
+            $("#edit_barangay").val(r.barangay);
+            $("#edit_contact").val(r.contact_number);
+
+            $("#editModal").modal("show");
+
+        }
+    );
+
+}
+
+//update
+function updateBusiness(){
+
+    let formData = {
+        id: $("#edit_id").val(),
+        business_name: $("#edit_business_name").val(),
+        owner_name: $("#edit_owner_name").val(),
+        barangay: $("#edit_barangay").val(),
+        contact_number: $("#edit_contact").val()
+    };
+
+    $.post(
+        "php/update/update_business.php",
+        formData,
+        function(response){
+
+            alert(response);
+            $("#editModal").modal("hide");
+            loadBusinesses();
+
+        }
+    );
+
 }
