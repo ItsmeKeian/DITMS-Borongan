@@ -121,6 +121,18 @@ The project is running in a localhost environment during development.
 ### Dashboard
 ![Dashboard](assets/screenshots/dashboard.png)
 
+### Business
+![Business](assets/screenshots/business.png)
+
+### Inspection
+![Inspection](assets/screenshots/inspection.png)
+
+### Tax Mapping
+![Tax Mapping](assets/screenshots/taxmapping.png)
+
+### Reports
+![Reports](assets/screenshots/reports.png)
+
 ---
 
 ## 🔒 Note
