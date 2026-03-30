@@ -56,9 +56,6 @@ Environment
 ### 🔐 Authentication System
 
 * Admin login
-* Inspector login
-* Session handling
-* Role-based access
 
 ### 🏢 Business Establishment Management
 
@@ -71,7 +68,6 @@ Environment
 
 * Record inspection results
 * Update inspection status
-* Track compliance
 * Store inspection history
 
 ### 🗺️ Tax Mapping / Location Module
@@ -83,7 +79,6 @@ Environment
 ### 📊 Reporting System
 
 * Generate inspection reports
-* Generate compliance reports
 * Printable records
 * Database filtering
 
@@ -98,8 +93,7 @@ Environment
 
 * Responsive design
 * Bootstrap layout
-* Admin dashboard style
-* Clean government system UI
+
 
 ---
 
