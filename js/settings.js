@@ -76,3 +76,38 @@ $("#logoInput").change(function(){
     }
 
 });
+
+
+//update admin password
+function updatePassword(){
+
+    let current = $("#current_password").val();
+    let newPass = $("#new_password").val();
+    let confirm = $("#confirm_password").val();
+
+    if(!current || !newPass || !confirm){
+        alert("Please fill all fields");
+        return;
+    }
+
+    if(newPass !== confirm){
+        alert("Passwords do not match");
+        return;
+    }
+
+    $.post("php/update/update_password.php", {
+        current_password: current,
+        new_password: newPass,
+        confirm_password: confirm
+    }, function(res){
+
+        alert(res);
+
+        // clear fields after success
+        $("#current_password").val("");
+        $("#new_password").val("");
+        $("#confirm_password").val("");
+
+    });
+
+}

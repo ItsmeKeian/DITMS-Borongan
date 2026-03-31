@@ -5,12 +5,6 @@ if(!isset($_SESSION["user"])){
     header("Location: index.html");
     exit();
 }
-
-require "php/dbconnect.php";
-
-// FETCH SETTINGS
-$stmt = $conn->query("SELECT * FROM system_settings WHERE id=1");
-$settings = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -196,20 +190,28 @@ $settings = $stmt->fetch(PDO::FETCH_ASSOC);
                         </div>
                     </div>
 
-                    <form>
-                        <div class="mb-4">
+                    <form onsubmit="event.preventDefault(); updatePassword();">
+
+                        <div class="mb-3">
+                            <label class="form-label">Current Password</label>
+                            <input type="password" id="current_password" class="form-control" placeholder="Enter current password">
+                        </div>
+
+                        <div class="mb-3">
                             <label class="form-label">New Password</label>
-                            <input type="password" class="form-control" placeholder="Enter new password">
+                            <input type="password" id="new_password" class="form-control" placeholder="Enter new password">
                         </div>
-                        <div class="mb-5">
+
+                        <div class="mb-4">
                             <label class="form-label">Confirm Password</label>
-                            <input type="password" class="form-control" placeholder="Confirm new password">
+                            <input type="password" id="confirm_password" class="form-control" placeholder="Confirm new password">
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary-gold w-100">
                             <i class="bi bi-lock-fill me-2"></i>
                             Update Password
                         </button>
+
                     </form>
                 </div>
             </div>
