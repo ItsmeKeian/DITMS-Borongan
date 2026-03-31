@@ -59,10 +59,17 @@ if(!isset($_SESSION["user"])){
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="reports.php">
                     <i class="fas fa-chart-bar"></i> Reports
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="settings.php">
+                    <i class="fas fa-gear"></i> Settings
+                    </a>
+                </li>
+
                 <li class="nav-item border-top mt-2 pt-2">
                     <a class="nav-link" href="php/logout.php">
                         <i class="fas fa-sign-out-alt"></i>

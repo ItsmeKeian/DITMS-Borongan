@@ -19,7 +19,7 @@ function loadDashboard(){
 
         let d = JSON.parse(data);
 
-        // CARDS
+        // cards
         $("#totalBusinesses").text(d.total);
         $("#inspectedCount").text(d.inspected);
         $("#pendingCount").text(d.pending);
@@ -34,7 +34,7 @@ function loadDashboard(){
 
 }
 
-/* ================= PIE ================= */
+// pie
 function renderPie(d){
 
     new Chart(document.getElementById("statusChart"), {
@@ -62,7 +62,7 @@ function renderPie(d){
 
 }
 
-/* ================= LINE ================= */
+// line
 function renderLine(d){
 
     new Chart(document.getElementById("lineChart"), {
@@ -84,7 +84,7 @@ function renderLine(d){
 
 }
 
-/* ================= BAR ================= */
+// bar
 function renderBar(d){
 
     new Chart(document.getElementById("barChart"), {
