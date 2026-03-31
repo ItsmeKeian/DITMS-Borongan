@@ -28,22 +28,21 @@ if(!$user){
     exit();
 }
 
-// 🔥 DETECT IF HASHED OR NOT
+
 if(password_get_info($user['password'])['algo'] !== 0){
-    // ✔ already hashed
+
     if(!password_verify($current, $user['password'])){
         echo "Current password is incorrect";
         exit();
     }
 }else{
-    // ❗ plain text (old system)
+    
     if($current !== $user['password']){
         echo "Current password is incorrect";
         exit();
     }
 }
 
-// 🔐 HASH NEW PASSWORD
 $hashed = password_hash($new, PASSWORD_DEFAULT);
 
 // UPDATE
