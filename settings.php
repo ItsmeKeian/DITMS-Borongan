@@ -1,12 +1,16 @@
 <?php
-
 session_start();
 
 if(!isset($_SESSION["user"])){
-    
     header("Location: index.html");
     exit();
 }
+
+require "php/dbconnect.php";
+
+// FETCH SETTINGS
+$stmt = $conn->query("SELECT * FROM system_settings WHERE id=1");
+$settings = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -93,7 +97,7 @@ if(!isset($_SESSION["user"])){
         <div class="d-flex align-items-center">
             <div class="dropdown">
                 <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                    <img src="assets/img/borlogo.png" class="rounded-circle" width="40" height="40" alt="User">
+                <img src="uploads/<?= $settings['logo'] ?? 'default.png' ?>"  class="rounded-circle" width="40" height="40" alt="User">
                     <span class="ms-2 d-none d-md-inline fw-semibold">Administrator</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -138,26 +142,40 @@ if(!isset($_SESSION["user"])){
                     <div class="row g-4">
                         <div class="col-md-6">
                             <label class="form-label">Municipality Name</label>
-                            <input type="text" class="form-control" value="Borongan City" placeholder="Enter municipality name">
+                            <input type="text" id="municipality" class="form-control">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Province</label>
-                            <input type="text" class="form-control" value="Eastern Samar" placeholder="Enter province">
+                            <input type="text" id="province" class="form-control">
                         </div>
                     </div>
 
                     <div class="mt-4">
                         <label class="form-label">Municipality Logo</label>
-                        <div class="logo-upload-area" onclick="document.getElementById('logoInput').click()">
-                            <i class="bi bi-cloud-upload display-4 text-muted mb-3 d-block"></i>
-                            <p class="fw-semibold text-muted mb-2">Click to upload logo</p>
-                            <p class="text-muted small mb-0">PNG, JPG, SVG up to 2MB</p>
+
+                        <div class="logo-upload-area text-center p-4 border rounded"
+                            style="cursor:pointer;"
+                            onclick="document.getElementById('logoInput').click()">
+
+                            <!-- PREVIEW IMAGE -->
+                            <img id="logoPreview"
+                                src=""
+                                style="max-width:150px; display:none; margin-bottom:10px; border-radius:10px;" />
+
+                            <!-- PLACEHOLDER -->
+                            <div id="uploadPlaceholder">
+                                <i class="bi bi-cloud-upload display-4 text-muted mb-3 d-block"></i>
+                                <p class="fw-semibold text-muted mb-2">Click to upload logo</p>
+                                <p class="text-muted small mb-0">PNG, JPG, SVG up to 2MB</p>
+                            </div>
+
                             <input type="file" id="logoInput" class="d-none" accept="image/*">
                         </div>
                     </div>
+                    
 
                     <div class="mt-5 pt-4 border-top">
-                        <button class="btn btn-primary-gold w-100">
+                    <button class="btn btn-primary-gold w-100" onclick="saveSystem()">
                             <i class="bi bi-save me-2"></i>
                             Save System Information
                         </button>

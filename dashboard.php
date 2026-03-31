@@ -94,7 +94,7 @@ if(!isset($_SESSION["user"])){
             <!-- 👤 Administrator -->
             <div class="dropdown">
                 <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                    <img src="assets/img/borlogo.png" class="rounded-circle" width="40" height="40">
+                <img src="uploads/<?= $settings['logo'] ?? 'default.png' ?>"  class="rounded-circle" width="40" height="40" alt="User">
                     <span class="ms-2 d-none d-md-inline fw-semibold">Administrator</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -221,6 +221,8 @@ if(!isset($_SESSION["user"])){
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/dashboard.js"></script>
+    <script src="js/settings.js"></script>
+
     
     <script>
         // Sidebar toggle for mobile

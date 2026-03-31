@@ -1,42 +1,78 @@
+//updating and saving system info
 function saveSystem(){
 
-    let data = {
-        municipality: $("#municipality").val(),
-        province: $("#province").val()
-    };
+    let formData = new FormData();
 
-    $.post("php/update/update_system.php", data, function(res){
-        alert(res);
-    });
+    formData.append("municipality", $("#municipality").val());
+    formData.append("province", $("#province").val());
 
-}
-
-function updatePassword(){
-
-    let pass = $("#new_password").val();
-    let confirm = $("#confirm_password").val();
-
-    if(pass !== confirm){
-        alert("Passwords do not match!");
-        return;
+    let file = $("#logoInput")[0].files[0];
+    if(file){
+        formData.append("logo", file);
     }
 
-    $.post("php/update/update_password.php", { password: pass }, function(res){
-        alert(res);
+    $.ajax({
+        url: "php/update/update_system.php",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(res){
+            alert(res);
+            location.reload(); // refresh para makita logo
+        }
+    });
+}
+
+//getting system info
+$(document).ready(function(){
+
+    loadSettings();
+
+});
+
+function loadSettings(){
+
+    $.get("php/get/get_settings.php", function(res){
+
+        let data = JSON.parse(res);
+
+        $("#municipality").val(data.municipality);
+        $("#province").val(data.province);
+
+        if(data.logo){
+            $(".top-header img").attr("src", "uploads/" + data.logo + "?t=" + new Date().getTime());
+        }
+
     });
 
 }
 
-function saveMap(){
 
-    let data = {
-        lat: $("#map_lat").val(),
-        lng: $("#map_lng").val(),
-        zoom: $("#map_zoom").val()
-    };
+// saving logo
+$("#logoInput").change(function(){
 
-    $.post("php/update/update_map.php", data, function(res){
-        alert(res);
-    });
+    let file = this.files[0];
 
-}
+    if(file){
+
+        // validation (optional)
+        if(!file.type.startsWith("image/")){
+            alert("Please select an image file");
+            return;
+        }
+
+        let reader = new FileReader();
+
+        reader.onload = function(e){
+            $("#logoPreview")
+                .attr("src", e.target.result)
+                .show();
+
+            $("#uploadPlaceholder").hide();
+        }
+
+        reader.readAsDataURL(file);
+    }
+
+});
