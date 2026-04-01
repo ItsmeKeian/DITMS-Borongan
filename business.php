@@ -124,7 +124,9 @@ if(!isset($_SESSION["user"])){
                         placeholder="Search business / owner"
                         style="width:250px;"
                     >
-
+                    <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#importModal">
+                            <i class="fas fa-file-import me-2"></i>Import Excel
+                        </button>
                 <button class="btn btn-outline-warning">
                     <i class="fas fa-download me-2"></i>Export
                 </button>
@@ -378,6 +380,35 @@ if(!isset($_SESSION["user"])){
       <div class="modal-footer">
         <button class="btn btn-primary" onclick="updateBusiness()">Update</button>
       </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- IMPORT MODAL -->
+<div class="modal fade" id="importModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5>Import Excel File</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form action="php/import/import_business.php" method="POST" enctype="multipart/form-data">
+
+        <div class="modal-body">
+          <input type="file" name="excel_file" class="form-control" accept=".xlsx,.csv" required>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success">Import</button>
+        </div>
+
+      </form>
 
     </div>
   </div>
