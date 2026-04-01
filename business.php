@@ -127,9 +127,9 @@ if(!isset($_SESSION["user"])){
                     <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#importModal">
                             <i class="fas fa-file-import me-2"></i>Import Excel
                         </button>
-                <button class="btn btn-outline-warning">
-                    <i class="fas fa-download me-2"></i>Export
-                </button>
+                        <a href="php/export/export_business.php" class="btn btn-outline-warning">
+                            <i class="fas fa-download me-2"></i>Export
+                        </a>
                 <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#addBusinessModal">
                     <i class="fas fa-plus me-2""></i>New Business
                 </button>
