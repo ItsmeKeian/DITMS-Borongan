@@ -18,8 +18,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if($user){
 
-    
-    if($password == $user["password"]){
+    if(password_verify($password, $user["password"])){
 
         $_SESSION["user"] = $user["username"];
 
@@ -28,11 +27,13 @@ if($user){
         ]);
 
     } else {
+
         echo json_encode([
             "status" => "error",
             "message" => "Wrong password"
         ]);
     }
+
 } else {
 
     echo json_encode([
